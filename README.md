@@ -1,8 +1,7 @@
 # FFC
 File Format Converter
 
-5. FFC (File Formate Convertion)
-(api and nonapi version)
+## Functionality
 - [ ] 5.1 md to csv
 - [ ] 5.2 csv to md
 - [x] 5.3 xml to csv
