@@ -17,5 +17,11 @@ path2 = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Fore
 cf.xml_to_csv(path1, path2)
 '''
 
-# bulk_file_rename(file_path, file_name_prefix, file_name_suffix)
-cf.bulk_file_rename()
+'''
+# bulk_rename(folder_path, file_name, file_type, csv_col_3_init)
+folder_path = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/'
+file_type = ".jpg"
+file_name = 'file_list.xlsx'
+csv_col_3_init = 1001 #New file name starts from 1
+cf.bulk_file_rename(folder_path, file_type, file_name, csv_col_3_init)
+'''
