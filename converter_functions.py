@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import filedialog
 import subprocess as sp
 import numpy as np
+import pathlib as pl
 
 os.system('cls')
 print('This is a library file, not a main file.\n\n')
@@ -87,12 +88,24 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
 
 folder_path = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1'
 file_type = ".jpg"
+file_name = '/file_list.xlsx'
 file_count_init = 0
 null_counter = 0
 filtered_file_list = []
-#csv_col = [_ for _ in ['Old file name', 'Extension', 'New file name', 'Command', 'Full Command']]
-csv_col = [_ for _ in ['Old file name', 'Extension', 'New file name']]
-csv_col_3_init = 1
+csv_col = [_ for _ in ['Old file name', 'Extension', 'New file name', 'Command', 'Full Command']]
+#csv_col = [_ for _ in ['Old file name', 'Extension', 'New file name', 'Command']]
+csv_col_3_init = 1001 #New file name starts from 1
+csv_col_4_init = "ren" #CMD rename command
+csv_col_5_init = 2 #Full command formula counter starts from 2
+#csv_col_5_init = "=D2&\" \"\"\"&A2&\"\"\" \"\"\"&C2&B2&\"\"\"\"" #Full command
+csv_col_5_init_1 = "=D"
+csv_col_5_init_2 = "&\" \"\"\"&A"
+csv_col_5_init_3 = "&\"\"\" \"\"\"&C"
+csv_col_5_init_4 = "&B"
+csv_col_5_init_5 = "\"\"\"\""
+
+#print(csv_col_5_init)
+#print(csv_col_5_init_1+csv_col_5_init_2+csv_col_5_init_3+csv_col_5_init_4+csv_col_5_init_5)
 
 # Read xml file and store in a array
 output = sp.run('dir /b /o:n', cwd=folder_path, shell=True, stdout=sp.PIPE)
@@ -113,19 +126,37 @@ np_col_1 = np_col_1[np.newaxis,:]
 np_col_2 = np.full((1, file_count_init), file_type)
 #for element in np_col_2: print(element)
 
-np_col_3 = [(csv_col_3_init + null_counter) for null_counter in range(0,file_count_init)]
+np_col_3 = [str(csv_col_3_init + null_counter) for null_counter in range(0,file_count_init)]
 np_col_3 = np.asarray(np_col_3)
 np_col_3 = np_col_3[np.newaxis,:]
 #for element in np_col_3: print(element)
 
-np_col = np.concatenate((np_col_1, np_col_2, np_col_3), axis=0)
-for element in np_col: print(element)
+np_col_4 = np.full((1, file_count_init), csv_col_4_init)
+#for element in np_col_4: print(element)
+
+np_col_5 = [csv_col_5_init_1 + (str(csv_col_5_init + null_counter)) + csv_col_5_init_2 + (str(csv_col_5_init + null_counter)) + csv_col_5_init_3 + (str(csv_col_5_init + null_counter)) + csv_col_5_init_4 + (str(csv_col_5_init + null_counter)) for null_counter in range(0,file_count_init)]
+np_col_5 = np.asarray(np_col_5)
+np_col_5 = np_col_5[np.newaxis,:]
+#for element in np_col_5: print(element)
+
+np_col = np.concatenate((np_col_1, np_col_2, np_col_3, np_col_4, np_col_5), axis=0)
+#for element in np_col: print(element)
 np_col = np.swapaxes(np_col, 0, 1)
-for element in np_col: print(element)
+#for element in np_col: print(element)
 
 df = pd.DataFrame(np_col, columns=csv_col)
-df.to_excel(folder_path + '/file_list.xlsx', index=False)
+df.to_excel(folder_path + file_name, index=False)
 print('Execute successful, xlsx file exported')
+
+p = pl.PureWindowsPath(rf'{folder_path}{file_name}')
+print(str(p))
+
+# Launch excel file (doesn't work)
+#os.system(f'start excel "{str(p)}"')
+
+# Launch file explorer
+sp.Popen(f'explorer /select, "{str(p)}"')
+print('Execute successful, excel file opened')
 
 # https://stackoverflow.com/questions/21406887/subprocess-changing-directory
 # https://www.geeksforgeeks.org/python-string-split/
@@ -139,3 +170,4 @@ print('Execute successful, xlsx file exported')
 # https://blog.csdn.net/qq_43893755/article/details/115225419
 # https://numpy.org/doc/stable/reference/generated/numpy.swapaxes.html
 # https://stackoverflow.com/questions/42330201/assign-values-to-array-during-loop-python
+# https://appdividend.com/2022/06/15/how-to-convert-python-tuple-to-array/
