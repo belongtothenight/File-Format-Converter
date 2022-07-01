@@ -36,3 +36,4 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
     xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
     xml_df_sort_less.to_csv(csv_file_path_name, index=False)
     print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
+
