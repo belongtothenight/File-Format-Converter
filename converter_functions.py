@@ -110,6 +110,10 @@ def bulk_file_rename(source_folder_path, source_file_type, generate_file_name, g
         https://numpy.org/doc/stable/reference/generated/numpy.swapaxes.html
         https://stackoverflow.com/questions/42330201/assign-values-to-array-during-loop-python
         https://appdividend.com/2022/06/15/how-to-convert-python-tuple-to-array/
+        https://stackoverflow.com/questions/35940748/use-python-to-launch-excel-file
+        https://www.codegrepper.com/code-examples/python/python+open+excel+file
+        https://stackoverflow.com/questions/281888/open-explorer-on-a-file
+        https://stackoverflow.com/questions/4119166/replace-backslashes-with-forward-slashes-in-python
     '''
     folder_path = source_folder_path
     file_type = source_file_type
