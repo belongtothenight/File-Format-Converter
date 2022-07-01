@@ -47,8 +47,19 @@ def select_file():
     print("converter_function.py-> Selected file path: ", file_path)
     return file_path
 
-# def user_input():
-
+def user_input():
+    '''
+    Description:
+        This function selects a file.
+    parameter:
+        Input:
+            None
+        Output:
+            (str) user input.
+    Link:
+        https://www.mikedane.com/programming-languages/python/getting-user-input/
+    '''
+    return input('Please enter your input: ')
 
 
 def xml_to_csv(xml_file_path, csv_file_path_name):
