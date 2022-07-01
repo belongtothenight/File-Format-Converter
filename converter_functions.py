@@ -64,8 +64,57 @@ def user_input():
 
 #def md_to_csv():
 
-#def csv_to_md():
+def csv_to_md(file, folder, md_name, md_title, md_frame):
+    '''
+    Description:
+        This function converts csv files to md files in the same folder.
+    parameter:
+        Input:
+            file: (str) path of csv file and its file name. Ex: "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/file_list.csv"
+            folder: (str) path of csv file. Ex: "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/"
+            md_name: (str) name of md file. Ex: "file_list_basic"
+            md_title: (str) title of md file. Ex: "Image"
+            md_frame: (str) frame of md file. Ex: "Test Frame"
+        Output:
+            None
+    Link:
+        https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character
+        https://www.pythontutorial.net/python-basics/python-write-text-file/
+        https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
+        https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html
+    '''
+    file_path = file
+    folder_path = folder
+    title = md_title
+    frame = md_frame
+    name = md_name
+    data = pd.read_csv(file_path, encoding= 'utf-8')
+    #print(data)
+    df = pd.DataFrame(data)
+    md_basic = df.to_markdown()
+    md_tabulate = df.to_markdown(tablefmt='grid')
+    #print(md_basic)
+    #print(md_tabulate)
 
+    #'''Export basic markdown file
+    with open(folder_path + name + ".md", 'w') as f:
+        f.write("# " + title + "\n")
+        f.write("[[" + frame + "]]" + "\n\n")
+        f.write(md_basic)
+        f.close()
+    print(folder_path + name + ".md")
+    print('Execute successful, md file exported')
+    #'''
+
+    '''Export tabulate markdown file (doesn't look good as markdown, better as txt)
+    with open(folder_path + name + ".md", 'w') as f:
+        f.write("# " + title + "\n")
+        f.write("[[" + frame + "]]" + "\n\n")
+        f.write(md_tabulate)
+        f.close()
+    print(folder_path + name + ".md")
+    print('Execute successful, md file exported')
+    '''
 
 def xml_to_csv(xml_file_path, csv_file_path_name):
     '''
@@ -308,10 +357,7 @@ def bulk_file_rename_xlsx(source_folder_path, source_file_type, generate_file_na
     sp.Popen(f'explorer /select, "{str(p)}"')
     print('Execute successful, xlsx file opened')
 
-'''
-folder_path = "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/file_list.xlsx"
-data = pd.read_csv(folder_path, encoding= 'utf-8')
-print(data)
-'''
 
-# https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character
+
+
+
