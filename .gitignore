@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Obsidian Folder
 .obsidian/
+
+# Visual Studio Code Workspace
+*.code-workspace
