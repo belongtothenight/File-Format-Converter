@@ -6,7 +6,6 @@ import tkinter as tk
 from tkinter import filedialog
 import subprocess as sp
 import numpy as np
-import pathlib as pl
 from pathlib import Path
 
 os.system('cls')
