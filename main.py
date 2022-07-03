@@ -1,14 +1,8 @@
 import converter_functions as cf
 
-
-
-'''select_file()
-cf.select_file()
-'''
-
-'''user input()
-print(cf.user_input())
-'''
+#cf.select_folder()
+#cf.convert_file()
+#print(cf.user_input())
 
 '''csv_to_md()
 file_path = "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/file_list.csv"

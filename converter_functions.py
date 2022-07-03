@@ -7,7 +7,6 @@ from tkinter import filedialog
 import subprocess as sp
 import numpy as np
 import pathlib as pl
-import csv
 
 os.system('cls')
 print('This is a library file, not a main file.\n\n')
@@ -42,6 +41,9 @@ def select_file():
             None
         Output:
             file_path: (str) path of file.
+    Example:
+        import converter_functions as cf
+        cf.select_file()
     Link:
         https://www.codegrepper.com/code-examples/python/Python+open+file+explorer+to+select+file
     '''
@@ -60,6 +62,9 @@ def user_input():
             None
         Output:
             (str) user input.
+    Example:
+        import converter_functions as cf
+        print(cf.user_input())
     Link:
         https://www.mikedane.com/programming-languages/python/getting-user-input/
     '''
