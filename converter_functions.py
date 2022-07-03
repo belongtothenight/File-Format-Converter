@@ -20,7 +20,7 @@ def select_folder_path():
             None
         Output:
             folder_path: (str) path of folder.
-    Example:
+    Sample Code:
         import converter_functions as cf
         cf.select_folder_path()
     Link:
@@ -41,7 +41,7 @@ def select_file():
             None
         Output:
             file_path: (str) path of file.
-    Example:
+    Sample Code:
         import converter_functions as cf
         cf.select_file()
     Link:
@@ -62,7 +62,7 @@ def user_input():
             None
         Output:
             (str) user input.
-    Example:
+    Sample Code:
         import converter_functions as cf
         print(cf.user_input())
     Link:
@@ -85,7 +85,7 @@ def csv_to_md(file, folder, md_name, md_title, md_frame):
             md_frame: (str) frame of md file.
         Output:
             None
-    Example:
+    Sample Code:
         import converter_functions as cf
         file_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/file_list.csv"
         folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/"
@@ -142,7 +142,7 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
             csv_file_path_name: (str) path of csv files and its file name.
         Output:
             None
-    Example:
+    Sample Code:
         import converter_functions as cf
         path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
         path2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/train2.csv"
@@ -175,15 +175,22 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
 def bulk_file_rename_csv(source_folder_path, source_file_type, generate_file_name, generate_filename_counter_init):
     '''
     Description:
-        This function create a new xlsx file in the target directory and provide user commands to copy and paste in command prompt in order to rename large amount of files as numbers at the same time.
+        This function create a new csv file in the target directory and provide user commands to copy and paste in command prompt in order to rename large amount of files as numbers at the same time.
     parameter:
         Input:
-            source_folder_path: (str) path of source folder, which is where those needed to be renamed are stored at. Ex: 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/'
-            source_file_type: (str) file type of source files, only include a single file type per run. Ex: ".jpg"
-            generate_file_name: (str) file name of generate file, which is the xlsx file's name that will be created. Ex: 'file_list.xlsx'
-            generate_filename_counter_init: (int) initial value of generated filename counter. Ex: 1, 1001, or 2001
+            source_folder_path: (str) path of source folder, which is where those needed to be renamed are stored at.
+            source_file_type: (str) file type of source files, only include a single file type per run.
+            generate_file_name: (str) file name of generate file, which is the xlsx file's name that will be created.
+            generate_filename_counter_init: (int) initial value of generated filename counter.
         Output:
             None
+    Sample Code:
+        import converter_functions as cf
+        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/"
+        file_type = ".jpg"
+        file_name = 'file_list.csv'
+        csv_col_3_init = 1001 #New file name starts from 1
+        cf.bulk_file_rename_csv(folder_path, file_type, file_name, csv_col_3_init)
     Link:
         https://stackoverflow.com/questions/21406887/subprocess-changing-directory
         https://www.geeksforgeeks.org/python-string-split/
