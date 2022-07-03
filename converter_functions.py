@@ -7,6 +7,7 @@ from tkinter import filedialog
 import subprocess as sp
 import numpy as np
 import pathlib as pl
+from pathlib import Path
 
 os.system('cls')
 print('This is a library file, not a main file.\n\n')
@@ -186,9 +187,9 @@ def bulk_file_rename_csv(source_folder_path, source_file_type, generate_file_nam
             None
     Sample Code:
         import converter_functions as cf
-        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/"
+        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/jpg/"
         file_type = ".jpg"
-        file_name = 'file_list.csv'
+        file_name = "file_list.csv"
         csv_col_3_init = 1001 #New file name starts from 1
         cf.bulk_file_rename_csv(folder_path, file_type, file_name, csv_col_3_init)
     Link:
@@ -268,12 +269,14 @@ def bulk_file_rename_csv(source_folder_path, source_file_type, generate_file_nam
     np_col = np.swapaxes(np_col, 0, 1)
     #for element in np_col: print(element)
 
-    df = pd.DataFrame(np_col, columns=csv_col)
-    df.to_csv(folder_path + file_name, index=False)
-    print('Execute successful, csv file exported')
+    p = os.getcwd()
+    #print(p)
+    p = p + '\\test_file\\' + file_name
+    print(p)
 
-    p = pl.PureWindowsPath(rf'{folder_path}{file_name}')
-    print(str(p))
+    df = pd.DataFrame(np_col, columns=csv_col)
+    df.to_csv(p, index=False)
+    print('Execute successful, csv file exported')
 
     # Launch excel file (doesn't work)
     #os.system(f'start excel "{str(p)}"')
@@ -288,12 +291,19 @@ def bulk_file_rename_xlsx(source_folder_path, source_file_type, generate_file_na
         This function create a new xlsx file in the target directory and provide user commands to copy and paste in command prompt in order to rename large amount of files as numbers at the same time.
     parameter:
         Input:
-            source_folder_path: (str) path of source folder, which is where those needed to be renamed are stored at. Ex: 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/'
-            source_file_type: (str) file type of source files, only include a single file type per run. Ex: ".jpg"
-            generate_file_name: (str) file name of generate file, which is the xlsx file's name that will be created. Ex: 'file_list.xlsx'
-            generate_filename_counter_init: (int) initial value of generated filename counter. Ex: 1, 1001, or 2001
+            source_folder_path: (str) path of source folder, which is where those needed to be renamed are stored at.
+            source_file_type: (str) file type of source files, only include a single file type per run.
+            generate_file_name: (str) file name of generate file, which is the xlsx file's name that will be created.
+            generate_filename_counter_init: (int) initial value of generated filename counter.
         Output:
             None
+    Sample Code:
+        import converter_functions as cf
+        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/jpg/"
+        file_type = ".jpg"
+        file_name = "file_list.xlsx"
+        csv_col_3_init = 1001 #New file name starts from 1
+        cf.bulk_file_rename_xlsx(folder_path, file_type, file_name, csv_col_3_init)
     Link:
         https://stackoverflow.com/questions/21406887/subprocess-changing-directory
         https://www.geeksforgeeks.org/python-string-split/
@@ -388,4 +398,4 @@ def bulk_file_rename_xlsx(source_folder_path, source_file_type, generate_file_na
 
 
 
-
+# automatically execute renaming function
