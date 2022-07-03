@@ -78,13 +78,21 @@ def csv_to_md(file, folder, md_name, md_title, md_frame):
         This function converts csv files to md files in the same folder.
     parameter:
         Input:
-            file: (str) path of csv file and its file name. Ex: "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/file_list.csv"
-            folder: (str) path of csv file. Ex: "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/"
-            md_name: (str) name of md file. Ex: "file_list_basic"
-            md_title: (str) title of md file. Ex: "Image"
-            md_frame: (str) frame of md file. Ex: "Test Frame"
+            file: (str) path of csv file and its file name.
+            folder: (str) path of csv file.
+            md_name: (str) name of md file.
+            md_title: (str) title of md file.
+            md_frame: (str) frame of md file.
         Output:
             None
+    Example:
+        import converter_functions as cf
+        file_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/file_list.csv"
+        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/"
+        name = "file_list_basic"
+        title = "Image"
+        frame = "Test Frame"
+        cf.csv_to_md(file_path, folder_path, name, title, frame)
     Link:
         https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character
         https://www.pythontutorial.net/python-basics/python-write-text-file/
@@ -130,10 +138,15 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
         This function converts xml files exported from labelimg to csv files.
     parameter:
         Input:
-            xml_file_path: (str) path of xml files. Ex: 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image2/xml'
-            csv_file_path_name: (str) path of csv files and its file name. Ex: 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image2/train2.csv'
+            xml_file_path: (str) path of xml files.
+            csv_file_path_name: (str) path of csv files and its file name.
         Output:
             None
+    Example:
+        import converter_functions as cf
+        path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
+        path2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/train2.csv"
+        cf.xml_to_csv(path1, path2)
     Link:
         https://github.com/belongtothenight/FRCNN_Related_Code/blob/main/Format%20Converter%20xml%20to%20csv%20V2.py
     '''

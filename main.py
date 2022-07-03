@@ -2,22 +2,9 @@ import converter_functions as cf
 
 #cf.select_folder()
 #cf.convert_file()
-#print(cf.user_input())
-
-'''csv_to_md()
-file_path = "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/file_list.csv"
-folder_path = "D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/"
-name = "file_list_basic"
-title = "Image"
-frame = "Test Frame"
-cf.csv_to_md(file_path, folder_path, name, title, frame)
-'''
-
-'''xml_to_csv(xml_file_path, csv_file_path_name)
-path1 = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image2/xml'
-path2 = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image2/train2.csv'
-cf.xml_to_csv(path1, path2)
-'''
+#cf.user_input()
+#cf.csv_to_md()
+#cf.xml_to_md()
 
 '''bulk_rename_csv(folder_path, file_name, file_type, csv_col_3_init)
 folder_path = 'D:/Note_Database/Subject/IITF Industrial Innovation and Technology Foresight/IITF Final Project/IITFFP AI Training/IITFFPAIT Rendered Image/IITFFPAITV Image1/'
