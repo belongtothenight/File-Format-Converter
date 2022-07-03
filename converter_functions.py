@@ -21,6 +21,9 @@ def select_folder_path():
             None
         Output:
             folder_path: (str) path of folder.
+    Example:
+        import converter_functions as cf
+        cf.select_folder_path()
     Link:
         https://stackoverflow.com/questions/66663179/how-to-use-windows-file-explorer-to-select-and-return-a-directory-using-python
     '''

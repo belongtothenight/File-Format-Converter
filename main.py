@@ -1,8 +1,6 @@
 import converter_functions as cf
 
-'''select_folder_path()
-cf.select_folder_path()
-'''
+
 
 '''select_file()
 cf.select_file()
