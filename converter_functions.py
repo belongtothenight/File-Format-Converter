@@ -1,5 +1,3 @@
-from unicodedata import category
-from unittest import skip
 import xml.etree.ElementTree as ET
 import pandas as pd
 import numpy as np

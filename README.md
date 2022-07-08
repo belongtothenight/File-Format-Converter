@@ -16,6 +16,18 @@
     - [x] 3. user input
     - [ ] 4. list all files
 
+## Developing Environment
+- Windows 11
+- Python 3.10.4
+    - xml.etree.ElementTree
+    - pandas
+    - numpy
+    - os
+    - glob
+    - tkinter
+    - subprocess
+    - pathlib
+
 ## File Structure and Description
 - test_file: Containing used files and those exported by these functions.
     - jpb
