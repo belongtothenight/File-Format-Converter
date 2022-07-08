@@ -1,5 +1,7 @@
 # File Format Converter for Data Manipulation and AI Training
 
+## NOTICE: THIS REPO IS UNDER DEVELOPMENT
+
 ## Functionality
 - GUI
     - [ ] 1. Functionality selecting GUI.
