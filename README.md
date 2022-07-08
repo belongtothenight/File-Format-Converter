@@ -2,6 +2,8 @@
 File Format Converter
 
 ## Functionality
+- GUI
+    - [ ] 1. Functionality selecting GUI.
 - Main Function
     - [x] 1. md to csv
     - [x] 2. csv to md
