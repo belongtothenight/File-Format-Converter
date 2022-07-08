@@ -42,4 +42,6 @@
 - LICENSE: MIT license detail.
 - README.md: Introduction to this repo.
 - converter_functions.yp: Store all the functions beside GUI.
-- main.py: GUI.
+- ffc.exe: Executable version of ffc.py.
+- ffc.py: GUI and function execution.
+- python_library_requirement.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
