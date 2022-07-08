@@ -81,7 +81,7 @@ def user_input():
     '''
     return input('Please enter your input: ')
 
-#list files in a folder
+#list files in a folder (including subfolder)
 
 #===============================================================================================================
 # Main function
@@ -109,9 +109,7 @@ def md_to_csv(fp, mdfn, csvfn):
         https://github.com/tomroy/mdtable2csv/blob/master/mdtable2csv
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
     '''
-
-    # dtype
-
+    # dtype not used in this function
     folderpath = fp
     md_filename = mdfn
     csv_filename = csvfn
