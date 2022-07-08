@@ -8,7 +8,7 @@
 - Main Function
     - [x] 1. md to csv
     - [x] 2. csv to md
-    - [x] 3. xml to csv
+    - [x] 3. xml to csv (labelimg)
     - [x] 4. bulk file rename
     - [ ] 5. csv to parquet (dtype, compress format)
     - [ ] 6. parquet to csv (partial read)
@@ -31,14 +31,19 @@
     - pathlib
 
 ## File Structure and Description
+- .github/ISSUE_TEMPLATE
+  - bug_report.md
+  - custom.md
+  - feature_request.md
 - test_file: Containing used files and those exported by these functions.
-    - jpb: File for renaming.
-    - xml: File for renaming.
-    - file_list_basic.csv: File generated from md to csv function.
-    - file_list_basic.md: File generated from csv to md function.
-    - file_list.csv: File generated from bulk file rename function.
-    - file_list.xlsx: File generated from bulk file rename function.
+  - jpb: File for renaming.
+  - xml: File for renaming.
+  - file_list_basic.csv: File generated from md to csv function.
+  - file_list_basic.md: File generated from csv to md function.
+  - file_list.csv: File generated from bulk file rename function.
+  - file_list.xlsx: File generated from bulk file rename function.
 - .gitignore: File types not included in this repo.
+- CONTRIBUTING.md: What to do if you want to contribute.
 - LICENSE: MIT license detail.
 - README.md: Introduction to this repo.
 - converter_functions.yp: Store all the functions beside GUI.
