@@ -7,7 +7,6 @@ import tkinter as tk
 from tkinter import filedialog
 import subprocess as sp
 from pathlib import Path
-from sys import exit # prevent exe error
 
 os.system('cls')
 print('This is a library file, not a main file.\n\n')
