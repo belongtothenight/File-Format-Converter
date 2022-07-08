@@ -1,5 +1,4 @@
-# FFC
-File Format Converter
+# File Format Converter for Data Manipulation and AI Training
 
 ## Functionality
 - GUI
