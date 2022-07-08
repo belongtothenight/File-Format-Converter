@@ -10,6 +10,13 @@ cf.xml_to_md()
 cf.bulk_file_rename()
 cf.md_to_csv(fp, mdfn, csvfn)
 '''
+'''
+Links
+    https://github.com/PySimpleGUI
+    https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_All_Elements.py
+    https://pysimplegui.readthedocs.io/en/latest/cookbook/#keys_1
+'''
+
 
 def make_window(theme):
     sg.theme(theme)
@@ -80,7 +87,7 @@ def make_window(theme):
     ]]
 
     layout[-1].append(sg.Sizegrip())
-    window = sg.Window('All Elements Demo', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=True)
+    window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=True)
     window.set_min_size(window.size)
     return window
 
