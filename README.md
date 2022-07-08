@@ -15,3 +15,16 @@
     - [x] 2. select file
     - [x] 3. user input
     - [ ] 4. list all files
+
+## File Structure and Description
+- test_file: Containing used files and those exported by these functions.
+    - jpb
+    - xml
+    - file_list_basic.csv
+    - file_list_basic.md
+    - file_list.csv
+    - file_list.xlsx
+- converter_functions.yp
+- FFC.code-workspace
+- main.py
+- README.md
