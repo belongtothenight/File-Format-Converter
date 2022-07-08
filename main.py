@@ -7,4 +7,5 @@ cf.user_input()
 cf.csv_to_md()
 cf.xml_to_md()
 cf.bulk_file_rename()
+cf.md_to_csv(fp, mdfn, csvfn)
 '''

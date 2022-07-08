@@ -1,25 +1,32 @@
+from unicodedata import category
+from unittest import skip
 import xml.etree.ElementTree as ET
 import pandas as pd
+import numpy as np
 import os
 import glob
 import tkinter as tk
 from tkinter import filedialog
 import subprocess as sp
-import numpy as np
 from pathlib import Path
 
 os.system('cls')
 print('This is a library file, not a main file.\n\n')
+
+#===============================================================================================================
+# Sub-function
 
 def select_folder_path():
     '''
     Description:
         This function selects a folder path.
     parameter:
-        Input:
+        Parameter:
             None
-        Output:
+        Return:
             folder_path: (str) path of folder.
+        Output:
+            None
     Sample Code:
         import converter_functions as cf
         cf.select_folder_path()
@@ -37,10 +44,12 @@ def select_file():
     Description:
         This function selects a file.
     parameter:
-        Input:
+        Parameter:
             None
-        Output:
+        Return:
             file_path: (str) path of file.
+        Output:
+            None
     Sample Code:
         import converter_functions as cf
         cf.select_file()
@@ -58,10 +67,12 @@ def user_input():
     Description:
         This function selects a file.
     parameter:
-        Input:
+        Parameter:
             None
+        Return:
+            user_input: (str) user input.
         Output:
-            (str) user input.
+            None
     Sample Code:
         import converter_functions as cf
         print(cf.user_input())
@@ -70,21 +81,94 @@ def user_input():
     '''
     return input('Please enter your input: ')
 
-#def md_to_csv():
+#list files in a folder
+
+#===============================================================================================================
+# Main function
+
+def md_to_csv(fp, mdfn, csvfn):
+    '''
+    Description:
+        This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.
+    parameter:
+        Parameter:
+            fp: (str) path of folder.
+            mdfn: (str) file name of markdown file.
+            csvfn: (str) file name of csv file.
+        Return:
+            None
+        Output:
+            csv file: Contains only the converted data.
+    Sample Code:
+        import converter_functions as cf
+        fp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfn = "file_list_basic.md"
+        csvfn = "file_list_basic.csv"
+        cf.md_to_csv(fp, mdfn, csvfn)
+    Link:
+        https://github.com/tomroy/mdtable2csv/blob/master/mdtable2csv
+        https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
+    '''
+
+    # dtype
+
+    folderpath = fp
+    md_filename = mdfn
+    csv_filename = csvfn
+
+    path_a = folderpath + "/" + md_filename
+    path_b = folderpath + "/" + csv_filename
+    line_counter = 0
+    data = []
+    # open markdown file
+    with open (path_a, 'r') as f:
+        md = f.read()
+    split_md = md.splitlines()
+    for line in split_md:
+        if line.startswith("|"):
+            line_counter += 1
+            if (line_counter) == 1:
+                category = line.split("|")
+                category_counter = len(category) - 2 # there are one extra column at the start and end of the table
+                del category[0]
+                del category[-1]
+                for i in range(0, category_counter): 
+                    category[i] = category[i].strip()
+                    #print(category[i])
+            elif (line_counter) == 2:
+                continue
+            else:
+                buffer = line.split("|")
+                del buffer[0]
+                del buffer[-1]
+                for i in range(0, category_counter):
+                    buffer[i] = buffer[i].strip()
+                    #print(buffer[i])
+                data.append(buffer)
+    # Data inspection
+    #print(category_counter)
+    #print(category)
+    #print(data)
+
+    table = pd.DataFrame(data, columns=category)
+    table.to_csv(path_b, index=False)
+    print("Execute successful, csv file exported\n")
 
 def csv_to_md(file, folder, md_name, md_title, md_frame):
     '''
     Description:
         This function converts csv files to md files in the same folder.
     parameter:
-        Input:
+        Parameter:
             file: (str) path of csv file and its file name.
             folder: (str) path of csv file.
             md_name: (str) name of md file.
             md_title: (str) title of md file.
             md_frame: (str) frame of md file.
-        Output:
+        Return:
             None
+        Output:
+            Markdown file: Consisted with a title, page frame, and data table.
     Sample Code:
         import converter_functions as cf
         file_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/file_list.csv"
@@ -137,11 +221,13 @@ def xml_to_csv(xml_file_path, csv_file_path_name):
     Description:
         This function converts xml files exported from labelimg to csv files.
     parameter:
-        Input:
+        Parameter:
             xml_file_path: (str) path of xml files.
             csv_file_path_name: (str) path of csv files and its file name.
-        Output:
+        Return:
             None
+        Output:
+            CSV file: Contains only the converted data.(without column name)
     Sample Code:
         import converter_functions as cf
         path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
@@ -177,13 +263,17 @@ def bulk_file_rename(source_folder_path, source_file_type, renamed_filename_coun
     Description:
         This function renames large amount of specific type of files in a folder, and can export csv or xlsx file with cmd renaming command.
     parameter:
-        Input:
+        Parameter:
             source_folder_path: (str) path of source folder, which is where those needed to be renamed are stored at.
             source_file_type: (str) file type of source files, only include a single file type per run.
             renamed_filename_counter_init: (int) initial value of generated filename counter.
             generate_file: (str) None, CSV, or EXCEL, decide whether to generate csv or xlsx file.
+        Return:
+            None
         Output:
             None
+            CSV file: Contains the list of filename.
+            EXCEL file: Contains the list of filename.
     Sample Code:
         import converter_functions as cf
         folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/jpg/"
@@ -368,3 +458,4 @@ def bulk_file_rename(source_folder_path, source_file_type, renamed_filename_coun
             pass
 
     print(f'Execute successful, all {file_type} file(s) in {p} is renamed!\n')
+
