@@ -10,4 +10,18 @@ cf.xml_to_md()
 cf.bulk_file_rename()
 cf.md_to_csv(fp, mdfn, csvfn)
 '''
-psg.Window(title='File Format Converter', layout=[[]], margins=(1920, 1080)).read()
+
+layout = [
+    [psg.Text('Select a folder to convert')],
+    [psg.Button("OK"), psg.Button("Cancel")]
+]
+
+window = psg.Window("File Format Converter", layout)
+
+while True:
+    event, values = window.read()
+    # Exit if user closes window or clicks ok
+    if event == "OK" or event == psg.WIN_CLOSED:
+        break
+
+window.close()
