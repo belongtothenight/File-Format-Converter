@@ -1,5 +1,9 @@
+from fnmatch import fnmatchcase
 import converter_functions as cf
 import PySimpleGUI as sg
+import tkinter as tk
+import webbrowser as wb
+import os
 # prevent exe error
 import sys
 
@@ -17,8 +21,17 @@ Links
     https://github.com/PySimpleGUI
     https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_All_Elements.py
     https://pysimplegui.readthedocs.io/en/latest/cookbook/#keys_1
+    https://www.youtube.com/watch?v=-_z2RPAH0Qk
+    https://www.youtube.com/watch?v=n6qzrBPkPqw
 '''
 
+# Variables Initialization
+source_folder = ''
+source_filename = ''
+export_folder = ''
+export_filename = ''
+converter = ''
+Converter_check = ''
 
 def make_window(theme):
     sg.theme(theme)
@@ -26,13 +39,13 @@ def make_window(theme):
     # Menu Layout
     menu_def = [
         ['Function List', ['Converter', ['MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'], 'Rename', ['Bulk File Rename']]],
-        ['Help', ['Github Repository', 'Github README.md']]
+        ['Help', ['Github README.md']]
     ]
-    right_click_menu_def = [[], ['Help', ['Github Repository', 'Github README.md'], 'Exit']]
+    right_click_menu_def = [[], ['Help', ['Github README.md'], 'Exit']]
 
-    # Converter Layout
+    # Single Convertion Layout
     col_1 = [
-        [sg.Text('View'), sg.OptionMenu(values=('Source Folder', 'Export Folder'),  k='-OPTION MENU-')],
+        [sg.Text('Files in'), sg.Radio('Source Folder', "RadioDemo", default=True, size=(10,1), k='-R1-', enable_events=True), sg.Radio('Export Folder', "RadioDemo", default=True, size=(10,1), k='-R2-', enable_events=True)],
         [sg.Listbox(values=[], enable_events=True, size=(40, 40), key='-LISTBOX-')]
     ]
 
@@ -40,18 +53,20 @@ def make_window(theme):
         [sg.Listbox(values=[], enable_events=True, size=(85, 42), key='-LISTBOX-')]
     ]
 
-    converter_layout = [
-        [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(key='-INPUT-')], 
-        [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext) '), sg.Input(key='-INPUT-')], 
-        [sg.Text('Select Converter'), sg.OptionMenu(values=('MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'),  k='-OPTION MENU-'), sg.Txt(size=(17,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'), sg.Txt(size=(20,1), key='-OUTPUT-')],
+    single_conversion_layout = [
+        [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
+        [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
+        [sg.Text('Select Converter'), sg.OptionMenu(values=('MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(35,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT-')],
         [sg.HSeparator()],
         [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
     ]
 
+    # Bulk Convertion Layout
+
     # Rename Layout
     rename_layout = [
         [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(key='-INPUT-')], 
-        [sg.Text('Export File'), sg.OptionMenu(values=('None', 'CSV', 'EXCEL'),  k='-OPTION MENU-'), sg.Text('Initial Filename Number'), sg.Input(key='-INPUT-')],
+        [sg.Text('Export File'), sg.OptionMenu(values=('None', 'CSV', 'EXCEL'),  key='-OPTION MENU-'), sg.Text('Initial Filename Number'), sg.Input(key='-INPUT-')],
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Button('Confirm and Rename'), sg.Text('View'), sg.OptionMenu(values=('Source Folder', 'Export Folder'),  k='-OPTION MENU-')],
         [sg.HSeparator()],
         [sg.Listbox(values=[], enable_events=True, size=(135, 42), key='-LISTBOX-')]
@@ -80,7 +95,7 @@ def make_window(theme):
     ]
     
     layout +=[[sg.TabGroup([[
-        sg.Tab('Converter', converter_layout),
+        sg.Tab('Single Conversion', single_conversion_layout),
         sg.Tab('Rename', rename_layout),
         sg.Tab('Execution Log', logging_layout),
         sg.Tab('Instructions', instruction_layout),
@@ -99,8 +114,10 @@ def main():
     # This is an Event Loop 
     while True:
         event, values = window.read(timeout=100)
-        # keep an animation running so show things are happening
-        
+        # calculations
+
+
+        # Event Handling
         if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
             print('============ Event = ', event, ' ==============')
             print('-------- Values Dictionary (key=value) --------')
@@ -109,52 +126,149 @@ def main():
         if event in (None, 'Exit'):
             print("[LOG] Clicked Exit!")
             break
-        elif event == 'About':
-            print("[LOG] Clicked About!")
-            sg.popup('PySimpleGUI Demo All Elements',
-                     'Right click anywhere to see right click menu',
-                     'Visit each of the tabs to see available elements',
-                     'Output of event and values can be see in Output tab',
-                     'The event and values dictionary is printed after every event', keep_on_top=True)
-        elif event == 'Popup':
-            print("[LOG] Clicked Popup Button!")
-            sg.popup("You pressed a button!", keep_on_top=True)
-            print("[LOG] Dismissing Popup!")
-        elif event == 'Test Progress bar':
-            print("[LOG] Clicked Test Progress Bar!")
-            progress_bar = window['-PROGRESS BAR-']
-            for i in range(100):
-                print("[LOG] Updating progress bar by 1 step ("+str(i)+")")
-                progress_bar.update(current_count=i + 1)
-            print("[LOG] Progress bar complete!")
-        elif event == "-GRAPH-":
-            graph = window['-GRAPH-']       # type: sg.Graph
-            graph.draw_circle(values['-GRAPH-'], fill_color='yellow', radius=20)
-            print("[LOG] Circle drawn at: " + str(values['-GRAPH-']))
-        elif event == "Open Folder":
-            print("[LOG] Clicked Open Folder!")
-            folder_or_file = sg.popup_get_folder('Choose your folder', keep_on_top=True)
-            sg.popup("You chose: " + str(folder_or_file), keep_on_top=True)
-            print("[LOG] User chose folder: " + str(folder_or_file))
-        elif event == "Open File":
-            print("[LOG] Clicked Open File!")
-            folder_or_file = sg.popup_get_file('Choose your file', keep_on_top=True)
-            sg.popup("You chose: " + str(folder_or_file), keep_on_top=True)
-            print("[LOG] User chose file: " + str(folder_or_file))
-        elif event == "Set Theme":
-            print("[LOG] Clicked Set Theme!")
-            theme_chosen = values['-THEME LISTBOX-'][0]
-            print("[LOG] User Chose Theme: " + str(theme_chosen))
-            window.close()
-            window = make_window(theme_chosen)
-        elif event == 'Edit Me':
-            sg.execute_editor(__file__)
-        elif event == 'Versions':
-            sg.popup_scrolled(__file__, sg.get_versions(), keep_on_top=True, non_blocking=True)
+        # Menu Events
+        elif event == 'MD to CSV':
+            print("[LOG] Clicked MD to CSV!")
+            sg.popup("This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.", keep_on_top=True)
+        elif event == 'CSV to MD':
+            print("[LOG] Clicked CSV to MD!")
+            sg.popup("This function converts csv files to md files in the same folder.", keep_on_top=True)
+        elif event == 'XML to MD':
+            print("[LOG] Clicked XML to MD!")
+            sg.popup("This function converts xml files exported from labelimg to csv files.", keep_on_top=True)
+        elif event == 'CSV to Parquet':
+            print("[LOG] Clicked CSV to Parquet!")
+            sg.popup("This function converts csv files to parquet files in the same folder.", keep_on_top=True)
+        elif event == 'Parquet to CSV':
+            print("[LOG] Clicked Parquet to CSV!")
+            sg.popup("This function converts parquet files to csv files in the same folder.", keep_on_top=True)
+        elif event == 'Bulk File Rename':
+            print("[LOG] Clicked Bulk File Rename!")
+            sg.popup("This function renames large amount of specific type of files in a folder, and can export csv or xlsx file with cmd renaming command.", keep_on_top=True)
+        elif event == 'Github README.md':
+            print("[LOG] Clicked Github Repository!")
+            wb.open('https://github.com/belongtothenight/File-Format-Converter')
+
+        # Converter Events
+        elif event == '-FOLDER-':
+            print("[LOG] Selected Folder!")
+            source_folder = values['-FOLDER-']
+            print('[LOG] Folder = ', source_folder)
+            # Trigger listbox update
+            try:
+                file_list = os.listdir(source_folder)
+            except:
+                file_list = []
+            fname = [
+                f
+                for f in file_list
+                if os.path.isfile(os.path.join(source_folder, f))
+                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+            ]
+            window["-LISTBOX-"].update(fname)
+            window['-R1-'].update(value=True)
+            window['-R2-'].update(value=False)
+        elif event == '-INPUT-':
+            print("[LOG] Typed Input!")
+            source_filename = values['-INPUT-']
+            print('[LOG] Source Filename = ', source_filename)
+        elif event == '-FOLDER-0':
+            print("[LOG] Selected Folder!")
+            export_folder = values['-FOLDER-0']
+            print('[LOG] Folder = ', export_folder)
+            # Trigger listbox update
+            try:
+                file_list = os.listdir(export_folder)
+            except:
+                file_list = []
+            fname = [
+                f
+                for f in file_list
+                if os.path.isfile(os.path.join(export_folder, f))
+                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+            ]
+            window["-LISTBOX-"].update(fname)
+            window['-R1-'].update(value=False)
+            window['-R2-'].update(value=True)
+        elif event == '-INPUT-2':
+            print("[LOG] Typed Input!")
+            export_filename = values['-INPUT-2']
+            print('[LOG] Export Filename = ', export_filename)
+        elif event == '-CONVERTER-':
+            print("[LOG] Selected Option Menu!")
+            converter = values['-OPTION MENU-']
+            print("[LOG] Converter selected: " + converter)
+            Converter_check = 'Converter Selected: ' + converter
+            window['-OUTPUT-'].update(Converter_check)
+            try:
+                if converter == 'MD to CSV' and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+                elif converter == 'CSV to MD' and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+                elif converter == 'XML to MD' and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.md')) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+                elif converter == 'CSV to Parquet' and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+                elif converter == 'Parquet to CSV' and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+                else:
+                    Converter_check = 'Converter Selected: ' + converter + ' => InValid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check)
+            except:
+                Converter_check = 'Please type filenames.'
+                print("[LOG] " + Converter_check)
+                window['-OUTPUT-'].update(Converter_check)
+        elif event == 'Convert and Export':
+            print("[LOG] Clicked Convert and Export!")
+        elif event == '-R1-':
+            print("[LOG] Selected view source folder!")
+            # Trigger listbox update
+            try:
+                file_list = os.listdir(source_folder)
+            except:
+                file_list = []
+            fname = [
+                f
+                for f in file_list
+                if os.path.isfile(os.path.join(source_folder, f))
+                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+            ]
+            window["-LISTBOX-"].update(fname)
+            window['-R1-'].update(value=True)
+            window['-R2-'].update(value=False)
+        elif event == '-R2-':
+            print("[LOG] Selected view export folder!")
+            # Trigger listbox update
+            try:
+                file_list = os.listdir(export_folder)
+            except:
+                file_list = []
+            fname = [
+                f
+                for f in file_list
+                if os.path.isfile(os.path.join(export_folder, f))
+                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+            ]
+            window["-LISTBOX-"].update(fname)
+            window['-R1-'].update(value=False)
+            window['-R2-'].update(value=True)
+        elif event == '-LISTBOX-4':
+            print("[LOG] Selected Listbox!")
 
     window.close()
     sys.exit(0)
 
 if __name__ == '__main__':
-    sg.theme('graygraygray')
+    sg.theme('lightgrey1')
     main()
