@@ -4,6 +4,7 @@ import PySimpleGUI as sg
 import tkinter as tk
 import webbrowser as wb
 import os
+import time
 # prevent exe error
 import sys
 
@@ -32,6 +33,7 @@ export_folder = ''
 export_filename = ''
 converter = ''
 Converter_check = ''
+final_status = ''
 
 def make_window(theme):
     sg.theme(theme)
@@ -56,7 +58,7 @@ def make_window(theme):
     single_conversion_layout = [
         [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-        [sg.Text('Select Converter'), sg.OptionMenu(values=('MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(35,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT-')],
+        [sg.Text('Select Converter'), sg.OptionMenu(values=('MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT0-')],
         [sg.HSeparator()],
         [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
     ]
@@ -230,7 +232,17 @@ def main():
                 print("[LOG] " + Converter_check)
                 window['-OUTPUT-'].update(Converter_check)
         elif event == 'Convert and Export':
-            print("[LOG] Clicked Convert and Export!")
+            if converter == '':
+                print("[LOG] Converter selected: None")
+                window['-OUTPUT0-'].update('Converter not selected.') 
+            elif Converter_check == 'Please type filenames.':
+                print("[LOG] Converter selected: None")
+                window['-OUTPUT0-'].update('Please type filenames.')
+            else:
+                print("[LOG] Clicked Convert and Export!")
+                print("[LOG] Converter selected: " + converter)
+                print("[LOG] Conversion complete, File exported!")
+                window['-OUTPUT0-'].update('File exported!') # if converted, if exported # add converter
         elif event == '-R1-':
             print("[LOG] Selected view source folder!")
             # Trigger listbox update
