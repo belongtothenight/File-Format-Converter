@@ -357,6 +357,9 @@ MigrationBackup/
 
 # Excecutable files
 *.exe
+*.spec
+.build/
+.dist/
 
 # Release Files
 .Release/
