@@ -357,3 +357,6 @@ MigrationBackup/
 
 # Excecutable files
 *.exe
+
+# Release Files
+.Release/
