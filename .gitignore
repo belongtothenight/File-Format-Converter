@@ -356,6 +356,7 @@ MigrationBackup/
 *.code-workspace
 
 # Excecutable files
+*.exe
 *.spec
 .build/
 .dist/
