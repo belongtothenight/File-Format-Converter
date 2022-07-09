@@ -35,12 +35,15 @@ converter = ''
 Converter_check = ''
 final_status = ''
 
+# Function List
+fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', 'CSV to Parquet', 'Parquet to CSV', 'File Rename']
+
 def make_window(theme):
     sg.theme(theme)
 
     # Menu Layout
     menu_def = [
-        ['Function List', ['Converter', ['MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'], 'Rename', ['Bulk File Rename']]],
+        ['Function List', ['Converter', [fl[0], fl[1], fl[2], fl[3], fl[4]], 'Rename', [fl[5]]]],
         ['Help', ['Github README.md']]
     ]
     right_click_menu_def = [[], ['Help', ['Github README.md'], 'Exit']]
@@ -58,7 +61,7 @@ def make_window(theme):
     single_conversion_layout = [
         [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-        [sg.Text('Select Converter'), sg.OptionMenu(values=('MD to CSV', 'CSV to MD', 'XML to MD', 'CSV to Parquet', 'Parquet to CSV'),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT0-')],
+        [sg.Text('Select Converter'), sg.OptionMenu(values=(fl[0], fl[1], fl[2], fl[3], fl[4]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT0-')],
         [sg.HSeparator()],
         [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
     ]
@@ -129,19 +132,19 @@ def main():
             print("[LOG] Clicked Exit!")
             break
         # Menu Events
-        elif event == 'MD to CSV':
+        elif event == fl[0]:
             print("[LOG] Clicked MD to CSV!")
             sg.popup("This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.", keep_on_top=True)
-        elif event == 'CSV to MD':
+        elif event == fl[1]:
             print("[LOG] Clicked CSV to MD!")
             sg.popup("This function converts csv files to md files in the same folder.", keep_on_top=True)
-        elif event == 'XML to MD':
-            print("[LOG] Clicked XML to MD!")
+        elif event == fl[2]:
+            print("[LOG] Clicked XML to CSV!")
             sg.popup("This function converts xml files exported from labelimg to csv files.", keep_on_top=True)
-        elif event == 'CSV to Parquet':
+        elif event == fl[3]:
             print("[LOG] Clicked CSV to Parquet!")
             sg.popup("This function converts csv files to parquet files in the same folder.", keep_on_top=True)
-        elif event == 'Parquet to CSV':
+        elif event == fl[4]:
             print("[LOG] Clicked Parquet to CSV!")
             sg.popup("This function converts parquet files to csv files in the same folder.", keep_on_top=True)
         elif event == 'Bulk File Rename':
@@ -203,23 +206,23 @@ def main():
             Converter_check = 'Converter Selected: ' + converter
             window['-OUTPUT-'].update(Converter_check)
             try:
-                if converter == 'MD to CSV' and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True:
+                if converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True:
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check)
-                elif converter == 'CSV to MD' and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True:
+                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True:
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check)
-                elif converter == 'XML to MD' and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.md')) == True:
+                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True:
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check)
-                elif converter == 'CSV to Parquet' and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True:
+                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True:
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check)
-                elif converter == 'Parquet to CSV' and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True:
+                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True:
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check)
@@ -232,6 +235,7 @@ def main():
                 print("[LOG] " + Converter_check)
                 window['-OUTPUT-'].update(Converter_check)
             # Add filename error check
+            # 
         elif event == 'Convert and Export':
             if converter == '':
                 print("[LOG] Converter selected: None")
