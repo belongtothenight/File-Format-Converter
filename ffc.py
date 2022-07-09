@@ -231,6 +231,7 @@ def main():
                 Converter_check = 'Please type filenames.'
                 print("[LOG] " + Converter_check)
                 window['-OUTPUT-'].update(Converter_check)
+            # Add filename error check
         elif event == 'Convert and Export':
             if converter == '':
                 print("[LOG] Converter selected: None")
