@@ -354,3 +354,6 @@ MigrationBackup/
 
 # Visual Studio Code Workspace
 *.code-workspace
+
+# Excecutable files
+*.exe
