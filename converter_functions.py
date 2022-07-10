@@ -525,3 +525,5 @@ def bulk_file_rename(source_folder_path, source_file_type, renamed_filename_coun
 
     print(f'Execute successful, all {file_type} file(s) in {p} is renamed!\n')
 
+if __name__ == '__main__':
+    print("This is converter library file, not main.")

@@ -54,7 +54,10 @@
 ## Bug
 1. ListBox -> Program Freeze.
    Problem: Click on the listbox in tab 'Single Conversion' before selecting any directory will cause it to freeze.
-   Status: N/A
+   Status: Unsolved.
 2. Window -> Always on top.
    Problem: The entire FFC window always display on top of every other windows.
-   Status: N/A
+   Status: Fixed.
+3. Select -> Program Freeze.
+   Problem: Click 'Select' in tab 'Single Conversion' before 'Export Filename' was input causing it to freeze.
+   Status: Unsolved.
