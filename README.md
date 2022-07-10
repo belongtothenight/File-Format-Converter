@@ -51,3 +51,8 @@
 - ffc.exe: Executable version of ffc.py.
 - ffc.py: GUI and function execution.
 - python_library_requirement.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
+
+## Troubleshoot
+1. Convert and Export
+   Problem: Button 'Convert and Export' in tab 'Single Conversion' doesn't work even if all names and directory are correct
+   Fix: Try install python package 'pyarrow'.
