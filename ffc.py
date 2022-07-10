@@ -29,8 +29,10 @@ Links
 # Variables Initialization
 source_folder = ''
 source_filename = ''
+source_folder_list = []
 export_folder = ''
 export_filename = ''
+export_folder_list = []
 converter = ''
 Converter_check = ''
 final_status = ''
@@ -62,7 +64,7 @@ def make_window(theme):
     single_conversion_layout = [
         [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-        [sg.Text('Select Converter'), sg.OptionMenu(values=(fl[0], fl[1], fl[2], fl[3], fl[4]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(20,1), key='-OUTPUT0-')],
+        [sg.Text('Select Converter'), sg.OptionMenu(values=(fl[0], fl[1], fl[2], fl[3], fl[4]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
         [sg.HSeparator()],
         [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
     ]
@@ -172,6 +174,7 @@ def main():
                 if os.path.isfile(os.path.join(source_folder, f))
                 #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
             ]
+            source_folder_list = file_list;
             window["-LISTBOX-"].update(fname)
             window['-R1-'].update(value=True)
             window['-R2-'].update(value=False)
@@ -194,6 +197,7 @@ def main():
                 if os.path.isfile(os.path.join(export_folder, f))
                 #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
             ]
+            export_folder_list = file_list;
             window["-LISTBOX-"].update(fname)
             window['-R1-'].update(value=False)
             window['-R2-'].update(value=True)
@@ -208,26 +212,46 @@ def main():
             Converter_check = 'Converter Selected: ' + converter
             window['-OUTPUT-'].update(Converter_check)
             try:
-                if converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True:
+                if converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True:
+                elif converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
+                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True:
+                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
+                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True:
+                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
+                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True:
+                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
+                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
+                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
                 else:
                     Converter_check = 'Converter Selected: ' + converter + ' => InValid!'
                     print("[LOG] " + Converter_check)
@@ -235,35 +259,42 @@ def main():
             except:
                 Converter_check = 'Please type filenames.'
                 print("[LOG] " + Converter_check)
-                window['-OUTPUT-'].update(Converter_check)
-            # Add filename error check (whether file exists)
+                window['-OUTPUT-'].update(Converter_check, text_color='red')
+            # Export folder error check (whether folder exists)
         elif event == 'Convert and Export':
-            if converter == '':
+            try:
+                if converter == '':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Converter not selected.', text_color='red')
+                elif Converter_check == 'Please type filenames.':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[0] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[1] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[2] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[3] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[4] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Source file doesn\'t exist!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please re-type source filename.', text_color='red')
+                else:
+                    print("[LOG] Clicked Convert and Export!")
+                    print("[LOG] Converter selected: " + converter)
+                    print("[LOG] Conversion complete, File exported!")
+                    window['-OUTPUT0-'].update('File exported!', text_color='green') # if converted, if exported # add converter
+            except:
                 print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Converter not selected.', text_color='red')
-            elif Converter_check == 'Please type filenames.':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif Converter_check == 'Converter Selected: ' + fl[0] + ' => InValid!':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif Converter_check == 'Converter Selected: ' + fl[1] + ' => InValid!':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif Converter_check == 'Converter Selected: ' + fl[2] + ' => InValid!':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif Converter_check == 'Converter Selected: ' + fl[3] + ' => InValid!':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif Converter_check == 'Converter Selected: ' + fl[4] + ' => InValid!':
-                print("[LOG] Converter selected: None")
-                window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            else:
-                print("[LOG] Clicked Convert and Export!")
-                print("[LOG] Converter selected: " + converter)
-                print("[LOG] Conversion complete, File exported!")
-                window['-OUTPUT0-'].update('File exported!', text_color='green') # if converted, if exported # add converter
+                window['-OUTPUT0-'].update('Please select converter.', text_color='red')
         elif event == '-R1-':
             print("[LOG] Selected view source folder!")
             # Trigger listbox update
