@@ -37,8 +37,11 @@ converter = ''
 Converter_check = ''
 final_status = ''
 
-# Function List
+# Converter Function List
 fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', 'CSV to Parquet', 'Parquet to CSV', 'File Rename']
+
+# Function
+
 
 # PysimpleGUI Window Layout
 def make_window(theme):
@@ -119,6 +122,28 @@ def make_window(theme):
 # PysimpleGUI Window Event Handler
 def main():
     window = make_window(sg.theme())
+
+    # Trigger listbox update
+    def listbox_update(listbox, folder, flag):
+        try:
+            file_list = os.listdir(folder)
+        except:
+            file_list = []
+        fname = [
+            f
+            for f in file_list
+            if os.path.isfile(os.path.join(folder, f))
+            #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+        ]
+        window[listbox].update(fname)
+        if flag == 'source':
+            window['-R1-'].update(value=True)
+            window['-R2-'].update(value=False)
+        elif flag == 'export':
+            window['-R1-'].update(value=False)
+            window['-R2-'].update(value=True)
+        else:
+            pass
     
     # This is an Event Loop 
     while True:
@@ -127,11 +152,11 @@ def main():
 
 
         # Event Handling
-        if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
-            print('============ Event = ', event, ' ==============')
-            print('-------- Values Dictionary (key=value) --------')
-            for key in values:
-                print(key, ' = ',values[key])
+        #if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
+        #    print('============ Event = ', event, ' ==============')
+        #    print('-------- Values Dictionary (key=value) --------')
+        #    for key in values:
+        #        print(key, ' = ',values[key])
         if event in (None, 'Exit'):
             print("[LOG] Clicked Exit!")
             break
@@ -288,45 +313,30 @@ def main():
                     print("[LOG] Converter selected: None")
                     window['-OUTPUT0-'].update('Please re-type source filename.', text_color='red')
                 else:
+                    # run conversion and export
+                    if converter == fl[0]:
+                        cf.md_to_csv(source_folder, export_folder, source_filename, export_filename)
                     print("[LOG] Clicked Convert and Export!")
-                    print("[LOG] Converter selected: " + converter)
                     print("[LOG] Conversion complete, File exported!")
                     window['-OUTPUT0-'].update('File exported!', text_color='green') # if converted, if exported # add converter
+                    listbox_update("-LISTBOX-", export_folder, 'export')
             except:
                 print("[LOG] Converter selected: None")
                 window['-OUTPUT0-'].update('Please select converter.', text_color='red')
         elif event == '-R1-':
             print("[LOG] Selected view source folder!")
-            # Trigger listbox update
             try:
-                file_list = os.listdir(source_folder)
+                listbox_update("-LISTBOX-", source_folder, 'source')
             except:
-                file_list = []
-            fname = [
-                f
-                for f in file_list
-                if os.path.isfile(os.path.join(source_folder, f))
-                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
-            ]
-            window["-LISTBOX-"].update(fname)
-            window['-R1-'].update(value=True)
-            window['-R2-'].update(value=False)
+                source_folder = ''
+                listbox_update("-LISTBOX-", source_folder, 'source')
         elif event == '-R2-':
             print("[LOG] Selected view export folder!")
-            # Trigger listbox update
             try:
-                file_list = os.listdir(export_folder)
+                listbox_update("-LISTBOX-", export_folder, 'export')
             except:
-                file_list = []
-            fname = [
-                f
-                for f in file_list
-                if os.path.isfile(os.path.join(export_folder, f))
-                #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
-            ]
-            window["-LISTBOX-"].update(fname)
-            window['-R1-'].update(value=False)
-            window['-R2-'].update(value=True)
+                export_folder = ''
+                listbox_update("-LISTBOX-", export_folder, 'export')
         elif event == '-LISTBOX-4':
             print("[LOG] Selected Listbox!")
 

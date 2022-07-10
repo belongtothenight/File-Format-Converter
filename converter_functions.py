@@ -9,7 +9,7 @@ import subprocess as sp
 from pathlib import Path
 
 os.system('cls')
-print('This is a library file, not a main file.\n\n')
+#print('This is a library file, not a main file.\n\n')
 
 #===============================================================================================================
 # Sub-function
@@ -84,13 +84,14 @@ def user_input():
 #===============================================================================================================
 # Main function
 
-def md_to_csv(fp, mdfn, csvfn):
+def md_to_csv(fp1, fp2, mdfn, csvfn):
     '''
     Description:
         This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.
     parameter:
         Parameter:
-            fp: (str) path of folder.
+            fp1: (str) path of source folder.
+            fp2: (str) path of export folder.
             mdfn: (str) file name of markdown file.
             csvfn: (str) file name of csv file.
         Return:
@@ -99,7 +100,8 @@ def md_to_csv(fp, mdfn, csvfn):
             csv file: Contains only the converted data.
     Sample Code:
         import converter_functions as cf
-        fp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        fp1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        fp2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
         mdfn = "file_list_basic.md"
         csvfn = "file_list_basic.csv"
         cf.md_to_csv(fp, mdfn, csvfn)
@@ -108,12 +110,13 @@ def md_to_csv(fp, mdfn, csvfn):
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
     '''
     # dtype not used in this function
-    folderpath = fp
+    sourcefolderpath = fp1
+    exportfolderpath = fp2
     md_filename = mdfn
     csv_filename = csvfn
 
-    path_a = folderpath + "/" + md_filename
-    path_b = folderpath + "/" + csv_filename
+    path_a = sourcefolderpath + "/" + md_filename
+    path_b = exportfolderpath + "/" + csv_filename
     line_counter = 0
     data = []
     # open markdown file
