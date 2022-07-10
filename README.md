@@ -47,6 +47,6 @@
 - python_library_requirement.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
 
 ## Troubleshoot
-1. Convert and Export
+1. Convert and Export: Please select converter.
    Problem: Button 'Convert and Export' in tab 'Single Conversion' doesn't work even if all names and directory are correct
    Fix: Try install python package 'pyarrow'.
