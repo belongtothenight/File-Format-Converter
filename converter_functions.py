@@ -153,7 +153,7 @@ def md_to_csv(fp1, fp2, mdfn, csvfn):
     table.to_csv(path_b, index=False)
     print("Execute successful, csv file exported\n")
 
-def csv_to_md(file, folder, md_name, md_title, md_frame):
+def csv_to_md(fp1, fp2, csvfn, mdfn, md_title, md_frame):
     '''
     Description:
         This function converts csv files to md files in the same folder.
@@ -182,38 +182,26 @@ def csv_to_md(file, folder, md_name, md_title, md_frame):
         https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html
     '''
-    file_path = file
-    folder_path = folder
-    title = md_title
-    frame = md_frame
-    name = md_name
-    data = pd.read_csv(file_path, encoding= 'utf-8')
+    #file_path = fp1 + "/" + csvfn
+    #folder_path = fp2
+    #title = md_title
+    #frame = md_frame
+    #name = mdfn
+    filepath_a = fp1 + "/" + csvfn
+    filepath_b = fp2 + "/" + mdfn
+
+    data = pd.read_csv(filepath_a, encoding= 'utf-8')
     #print(data)
     df = pd.DataFrame(data)
     md_basic = df.to_markdown()
-    md_tabulate = df.to_markdown(tablefmt='grid')
-    #print(md_basic)
-    #print(md_tabulate)
 
-    #'''Export basic markdown file
-    with open(folder_path + name + ".md", 'w') as f:
-        f.write("# " + title + "\n")
-        f.write("[[" + frame + "]]" + "\n\n")
+    #Export basic markdown file
+    with open(filepath_b, 'w') as f:
+        #f.write("# " + md_title + "\n")
+        #f.write("[[" + md_frame + "]]" + "\n\n")
         f.write(md_basic)
         f.close()
-    print(folder_path + name + ".md")
     print('Execute successful, md file exported')
-    #'''
-
-    '''Export tabulate markdown file (doesn't look good as markdown, better as txt)
-    with open(folder_path + name + ".md", 'w') as f:
-        f.write("# " + title + "\n")
-        f.write("[[" + frame + "]]" + "\n\n")
-        f.write(md_tabulate)
-        f.close()
-    print(folder_path + name + ".md")
-    print('Execute successful, md file exported')
-    '''
 
 def xml_to_csv(xml_file_path, csv_file_path_name):
     '''

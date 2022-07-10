@@ -38,7 +38,7 @@ Converter_check = ''
 final_status = ''
 
 # Converter Function List
-fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', 'CSV to Parquet', 'Parquet to CSV', 'File Rename']
+fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', '*CSV to Parquet', '*Parquet to CSV', 'File Rename']
 
 # Function
 
@@ -316,6 +316,8 @@ def main():
                     # run conversion and export
                     if converter == fl[0]:
                         cf.md_to_csv(source_folder, export_folder, source_filename, export_filename)
+                    if converter == fl[1]:
+                        cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test")
                     print("[LOG] Clicked Convert and Export!")
                     print("[LOG] Conversion complete, File exported!")
                     window['-OUTPUT0-'].update('File exported!', text_color='green') # if converted, if exported # add converter
