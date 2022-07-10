@@ -49,7 +49,7 @@ def make_window(theme):
 
     # Menu Layout
     menu_def = [
-        ['Function List', ['Converter', [fl[0], fl[1], fl[2], fl[3], fl[4]], 'Rename', [fl[5]]]],
+        ['Function List', [fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]]],
         ['Help', ['Github README.md']]
     ]
     right_click_menu_def = [[], ['Help', ['Github README.md'], 'Exit']]
@@ -185,7 +185,6 @@ def main():
 
         # Converter Events
         elif event == '-FOLDER-':
-            print("[LOG] Selected Folder!")
             source_folder = values['-FOLDER-']
             print('[LOG] Folder = ', source_folder)
             # Trigger listbox update
@@ -204,11 +203,9 @@ def main():
             window['-R1-'].update(value=True)
             window['-R2-'].update(value=False)
         elif event == '-INPUT-':
-            print("[LOG] Typed Input!")
             source_filename = values['-INPUT-']
             print('[LOG] Source Filename = ', source_filename)
         elif event == '-FOLDER-0':
-            print("[LOG] Selected Folder!")
             export_folder = values['-FOLDER-0']
             print('[LOG] Folder = ', export_folder)
             # Trigger listbox update
@@ -227,7 +224,6 @@ def main():
             window['-R1-'].update(value=False)
             window['-R2-'].update(value=True)
         elif event == '-INPUT-2':
-            print("[LOG] Typed Input!")
             export_filename = values['-INPUT-2']
             print('[LOG] Export Filename = ', export_filename)
         elif event == '-CONVERTER-':
@@ -315,16 +311,28 @@ def main():
                 else:
                     # run conversion and export
                     if converter == fl[0]:
-                        cf.md_to_csv(source_folder, export_folder, source_filename, export_filename)
+                        if cf.md_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[1]:
-                        cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test") # h1 and frame doesn't work here
+                        if cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test") == True: # h1 and frame doesn't work here
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[2]:
-                        cf.xml_to_csv(source_folder, export_folder, source_filename, export_filename)
+                        if cf.xml_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
+                    elif converter == fl[3]:
+                        if cf.csv_to_parquet(source_folder, export_folder, source_filename, export_filename) == True:
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
+                    elif converter == fl[4]:
+                        if cf.parquet_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
                     else:
-                        print()
-                    print("[LOG] Clicked Convert and Export!")
-                    print("[LOG] Conversion complete, File exported!")
-                    window['-OUTPUT0-'].update('File exported!', text_color='green') # if converted, if exported # add converter
+                        print("[LOG] Conversion error, no file exported.")
+                        window['-OUTPUT0-'].update('Error!', text_color='red')
                     listbox_update("-LISTBOX-", export_folder, 'export')
             except:
                 print("[LOG] Converter selected: None")

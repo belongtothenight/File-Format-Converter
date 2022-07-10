@@ -25,7 +25,7 @@ def md_to_csv(mdfp, csvfp, mdfn, csvfn):
             mdfn: (str) file name of markdown file.
             csvfn: (str) file name of csv file.
         Return:
-            None
+            True: (bool) if md file is converted to csv file successfully.
         Output:
             csv file: Contains only the converted data.
     Sample Code:
@@ -34,7 +34,9 @@ def md_to_csv(mdfp, csvfp, mdfn, csvfn):
         csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
         mdfn = "file_list_basic.md"
         csvfn = "file_list_basic.csv"
-        cf.md_to_csv(fp, mdfn, csvfn)
+        status = cf.md_to_csv(mdfp, csvfp, mdfn, csvfn)
+        if status == True:
+            print("Conversion successful.")
     Link:
         https://github.com/tomroy/mdtable2csv/blob/master/mdtable2csv
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
@@ -81,7 +83,7 @@ def md_to_csv(mdfp, csvfp, mdfn, csvfn):
 
     table = pd.DataFrame(data, columns=category)
     table.to_csv(path_b, index=False)
-    print("Execute successful, csv file exported\n")
+    return True
 
 def csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame):
     '''
@@ -89,23 +91,27 @@ def csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame):
         This function converts csv files to md files in the same folder.
     parameter:
         Parameter:
-            file: (str) path of csv file and its file name.
-            folder: (str) path of csv file.
-            md_name: (str) name of md file.
-            md_title: (str) title of md file.
-            md_frame: (str) frame of md file.
+            csvfp: (str) path of source folder.
+            mdfp: (str) path of export folder.
+            csvfn: (str) file name of csv file.
+            mdfn: (str) file name of markdown file.
+            md_title: (str) title of markdown file.
+            md_frame: (str) frame of markdown file.
         Return:
-            None
+            True: (bool) if csv file is converted to md file successfully.
         Output:
             Markdown file: Consisted with a title, page frame, and data table.
     Sample Code:
         import converter_functions as cf
-        file_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/file_list.csv"
-        folder_path = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/"
-        name = "file_list_basic"
-        title = "Image"
-        frame = "Test Frame"
-        cf.csv_to_md(file_path, folder_path, name, title, frame)
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfn = "file_list_basic.csv"
+        mdfn = "file_list_basic.md"
+        md_title = "Test"
+        md_frame = "Test"
+        status = cf.csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame)
+        if status == True:
+            print("Conversion successful.")
     Link:
         https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character
         https://www.pythontutorial.net/python-basics/python-write-text-file/
@@ -126,7 +132,7 @@ def csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame):
         #f.write("[[" + md_frame + "]]" + "\n\n")
         f.write(md_basic)
         f.close()
-    print('Execute successful, md file exported')
+    return True
 
 def xml_to_csv(xmlfp, csvfp, xmlfn, csvfn):
     '''
@@ -134,17 +140,23 @@ def xml_to_csv(xmlfp, csvfp, xmlfn, csvfn):
         This function converts xml files exported from labelimg to csv files.
     parameter:
         Parameter:
-            xml_file_path: (str) path of xml files.
-            csv_file_path_name: (str) path of csv files and its file name.
+            xmlfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+            xmlfn: (str) file name of xml file.
+            csvfn: (str) file name of csv file.
         Return:
-            None
+            True: (bool) if xml file is converted to csv file successfully.
         Output:
             CSV file: Contains only the converted data.(without column name)
     Sample Code:
         import converter_functions as cf
-        path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
-        path2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/train2.csv"
-        cf.xml_to_csv(path1, path2)
+        xmlfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        xmlfn = "file_list_basic.xml"
+        csvfn = "file_list_basic.csv"
+        status = cf.xml_to_csv(xmlfp, csvfp, xmlfn, csvfn)
+        if status == True:
+            print("Conversion successful")
     Link:
         https://github.com/belongtothenight/FRCNN_Related_Code/blob/main/Format%20Converter%20xml%20to%20csv%20V2.py
     '''
@@ -170,6 +182,79 @@ def xml_to_csv(xmlfp, csvfp, xmlfn, csvfn):
     xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
     xml_df_sort_less.to_csv(filepath_b, index=False)
     print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
+    return True
+
+def csv_to_parquet(csvfp, pqfp, csvfn, pqfn):
+    '''
+    Description:
+        This function converts csv files to parquet files.
+    parameter:
+        Parameter:
+            csvfp: (str) path of source folder.
+            pqfp: (str) path of export folder.
+            csvfn: (str) file name of csv file.
+            pqfn: (str) file name of parquet file.
+        Return:
+            True: (bool) if csv file is converted to parquet file successfully.
+        Output:
+            Parquet file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        pqfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfn = "file_list_basic.csv"
+        pqfn = "file_list_basic.parquet"
+        status = cf.csv_to_parquet(csvfp, pqfp, csvfn, pqfn)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#parquet-files
+    '''
+    filepath_a = csvfp + "/" + csvfn
+    filepath_b = pqfp + "/" + pqfn
+
+    #data = pd.read_csv(filepath_a, encoding= 'utf-8')
+    #data.to_parquet(filepath_b, engine='pyarrow')
+    #print("Execute successful, parquet file exported")
+
+    print("csv to parquet is not coded yet.")
+    return True
+
+def parquet_to_csv(pqfp, csvfp, pqfn, csvfn):
+    '''
+    Description:
+        This function converts parquet files to csv files.
+    parameter:
+        Parameter:
+            pqfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+            pqfn: (str) file name of parquet file.
+            csvfn: (str) file name of csv file.
+        Return:
+            True: (bool) if parquet file is converted to csv file successfully.
+        Output:
+            CSV file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        pqfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        pqfn = "file_list_basic.parquet"
+        csvfn = "file_list_basic.csv"
+        status = cf.parquet_to_csv(pqfp, csvfp, pqfn, csvfn)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    filepath_a = pqfp + "/" + pqfn
+    filepath_b = csvfp + "/" + csvfn
+    
+    #data = pd.read_parquet(filepath_a)
+    #data.to_csv(filepath_b, index=False)
+    #print(data, '\n\nexecute successful, csv file exported')
+
+    print("parquet_to_csv is not coded yet.")
+    return True
 
 #===============================================================================================================
 # Bulk Conversion Function
