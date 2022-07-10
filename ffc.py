@@ -38,7 +38,7 @@ Converter_check = ''
 final_status = ''
 
 # Converter Function List
-fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', '*CSV to Parquet', '*Parquet to CSV', '*File Rename']
+fl = ['MD to CSV', 'CSV to MD', 'XML to CSV', 'CSV to Parquet', 'Parquet to CSV', 'File Rename']
 
 # Function
 
@@ -67,7 +67,7 @@ def make_window(theme):
     single_conversion_layout = [
         [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-        [sg.Text('Select Converter'), sg.OptionMenu(values=(fl[0], fl[1], fl[2], fl[3], fl[4]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
+        [sg.Text('Select Converter'), sg.OptionMenu(values=(fl[0], fl[1], fl[2], fl[3], fl[4], fl[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
         [sg.HSeparator()],
         [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
     ]
@@ -176,9 +176,9 @@ def main():
         elif event == fl[4]:
             print("[LOG] Clicked Parquet to CSV!")
             sg.popup("This function converts parquet files to csv files in the same folder.", keep_on_top=True)
-        elif event == 'Bulk File Rename':
-            print("[LOG] Clicked Bulk File Rename!")
-            sg.popup("This function renames large amount of specific type of files in a folder, and can export csv or xlsx file with cmd renaming command.", keep_on_top=True)
+        elif event == fl[5]:
+            print("[LOG] Clicked File Rename!")
+            sg.popup("This function renames the file specified.", keep_on_top=True)
         elif event == 'Github README.md':
             print("[LOG] Clicked Github Repository!")
             wb.open('https://github.com/belongtothenight/File-Format-Converter')
@@ -233,6 +233,11 @@ def main():
             Converter_check = 'Converter Selected: ' + converter
             window['-OUTPUT-'].update(Converter_check)
             try:
+                print(converter == fl[3])
+                print(source_filename.endswith(('.csv')) == True)
+                print(export_filename.endswith(('.parquet')))
+                print((source_filename in source_folder_list) == False)
+
                 if converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
@@ -273,6 +278,14 @@ def main():
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
+                elif converter == fl[5]  and (source_filename in source_folder_list) == True:
+                    Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
+                    print("[LOG] " + Converter_check)
+                    window['-OUTPUT-'].update(Converter_check, text_color='green')
+                elif converter == fl[5] and (source_filename in source_folder_list) == False:
+                    Converter_check = 'Source file doesn\'t exist!'
+                    print("[LOG] Source file doesn\'t exist!")
+                    window['-OUTPUT-'].update(Converter_check, text_color='red')
                 else:
                     Converter_check = 'Converter Selected: ' + converter + ' => InValid!'
                     print("[LOG] " + Converter_check)
@@ -305,6 +318,9 @@ def main():
                 elif Converter_check == 'Converter Selected: ' + fl[4] + ' => InValid!':
                     print("[LOG] Converter selected: None")
                     window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
+                elif Converter_check == 'Converter Selected: ' + fl[5] + ' => InValid!':
+                    print("[LOG] Converter selected: None")
+                    window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
                 elif Converter_check == 'Source file doesn\'t exist!':
                     print("[LOG] Converter selected: None")
                     window['-OUTPUT0-'].update('Please re-type source filename.', text_color='red')
@@ -328,6 +344,10 @@ def main():
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[4]:
                         if cf.parquet_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                            print("[LOG] Conversion complete, File exported!")
+                            window['-OUTPUT0-'].update('File exported!', text_color='green')
+                    elif converter == fl[5]:
+                        if cf.file_rename(source_folder, export_folder, source_filename, export_filename) == True:
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     else:

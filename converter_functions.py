@@ -213,11 +213,11 @@ def csv_to_parquet(csvfp, pqfp, csvfn, pqfn):
     filepath_a = csvfp + "/" + csvfn
     filepath_b = pqfp + "/" + pqfn
 
-    #data = pd.read_csv(filepath_a, encoding= 'utf-8')
-    #data.to_parquet(filepath_b, engine='pyarrow')
-    #print("Execute successful, parquet file exported")
+    data = pd.read_csv(filepath_a, encoding= 'utf-8')
+    data.to_parquet(filepath_b, engine='pyarrow')
+    print("Execute successful, parquet file exported")
 
-    print("csv to parquet is not coded yet.")
+    #print("csv to parquet is not coded yet.")
     return True
 
 def parquet_to_csv(pqfp, csvfp, pqfn, csvfn):
@@ -249,11 +249,42 @@ def parquet_to_csv(pqfp, csvfp, pqfn, csvfn):
     filepath_a = pqfp + "/" + pqfn
     filepath_b = csvfp + "/" + csvfn
     
-    #data = pd.read_parquet(filepath_a)
-    #data.to_csv(filepath_b, index=False)
-    #print(data, '\n\nexecute successful, csv file exported')
+    data = pd.read_parquet(filepath_a)
+    data.to_csv(filepath_b, index=False)
+    print(data, '\n\nexecute successful, csv file exported')
 
-    print("parquet_to_csv is not coded yet.")
+    #print("parquet_to_csv is not coded yet.")
+    return True
+
+def file_rename(ofp, nfp, ofn, nfn):
+    '''
+    Description:
+        This function renames files.
+    parameter:
+        Parameter:
+            ofp: (str) path of source folder.
+            nfp: (str) path of export folder.
+            ofn: (str) file name of original file.
+            nfn: (str) file name of new file.
+        Return:
+            True: (bool) if file is renamed successfully.
+        Output:
+            None
+    Sample Code:
+        import converter_functions as cf
+        ofp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        nfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        ofn = "file_list_basic.csv"
+        nfn = "file_list_basic_rename.csv"
+        status = cf.file_rename(ofp, nfp, ofn, nfn)
+        if status == True:
+            print("Renaming successful")
+    Link:
+        None
+    '''
+    filepath_a = ofp + "/" + ofn
+    filepath_b = nfp + "/" + nfn
+    os.rename(filepath_a, filepath_b)
     return True
 
 #===============================================================================================================
