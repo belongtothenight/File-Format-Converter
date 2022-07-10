@@ -12,86 +12,16 @@ os.system('cls')
 #print('This is a library file, not a main file.\n\n')
 
 #===============================================================================================================
-# Sub-function
+# Single Conversion Function
 
-def select_folder_path():
-    '''
-    Description:
-        This function selects a folder path.
-    parameter:
-        Parameter:
-            None
-        Return:
-            folder_path: (str) path of folder.
-        Output:
-            None
-    Sample Code:
-        import converter_functions as cf
-        cf.select_folder_path()
-    Link:
-        https://stackoverflow.com/questions/66663179/how-to-use-windows-file-explorer-to-select-and-return-a-directory-using-python
-    '''
-    #print('\n\nExecuting select_folder_path function')
-    tk.Tk().withdraw()
-    folder_path = filedialog.askdirectory()
-    print("converter_function.py-> Selected folder path: ", folder_path)
-    return folder_path
-
-def select_file():
-    '''
-    Description:
-        This function selects a file.
-    parameter:
-        Parameter:
-            None
-        Return:
-            file_path: (str) path of file.
-        Output:
-            None
-    Sample Code:
-        import converter_functions as cf
-        cf.select_file()
-    Link:
-        https://www.codegrepper.com/code-examples/python/Python+open+file+explorer+to+select+file
-    '''
-    #print('\n\nExecuting select_file function')
-    tk.Tk().withdraw()
-    file_path = filedialog.askopenfilename()
-    print("converter_function.py-> Selected file path: ", file_path)
-    return file_path
-
-def user_input():
-    '''
-    Description:
-        This function selects a file.
-    parameter:
-        Parameter:
-            None
-        Return:
-            user_input: (str) user input.
-        Output:
-            None
-    Sample Code:
-        import converter_functions as cf
-        print(cf.user_input())
-    Link:
-        https://www.mikedane.com/programming-languages/python/getting-user-input/
-    '''
-    return input('Please enter your input: ')
-
-#list files in a folder (including subfolder)
-
-#===============================================================================================================
-# Main function
-
-def md_to_csv(fp1, fp2, mdfn, csvfn):
+def md_to_csv(mdfp, csvfp, mdfn, csvfn):
     '''
     Description:
         This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.
     parameter:
         Parameter:
-            fp1: (str) path of source folder.
-            fp2: (str) path of export folder.
+            mdfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
             mdfn: (str) file name of markdown file.
             csvfn: (str) file name of csv file.
         Return:
@@ -100,8 +30,8 @@ def md_to_csv(fp1, fp2, mdfn, csvfn):
             csv file: Contains only the converted data.
     Sample Code:
         import converter_functions as cf
-        fp1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
-        fp2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
         mdfn = "file_list_basic.md"
         csvfn = "file_list_basic.csv"
         cf.md_to_csv(fp, mdfn, csvfn)
@@ -110,8 +40,8 @@ def md_to_csv(fp1, fp2, mdfn, csvfn):
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
     '''
     # dtype not used in this function
-    sourcefolderpath = fp1
-    exportfolderpath = fp2
+    sourcefolderpath = mdfp
+    exportfolderpath = csvfp
     md_filename = mdfn
     csv_filename = csvfn
 
@@ -153,7 +83,7 @@ def md_to_csv(fp1, fp2, mdfn, csvfn):
     table.to_csv(path_b, index=False)
     print("Execute successful, csv file exported\n")
 
-def csv_to_md(fp1, fp2, csvfn, mdfn, md_title, md_frame):
+def csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame):
     '''
     Description:
         This function converts csv files to md files in the same folder.
@@ -182,13 +112,8 @@ def csv_to_md(fp1, fp2, csvfn, mdfn, md_title, md_frame):
         https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
         https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html
     '''
-    #file_path = fp1 + "/" + csvfn
-    #folder_path = fp2
-    #title = md_title
-    #frame = md_frame
-    #name = mdfn
-    filepath_a = fp1 + "/" + csvfn
-    filepath_b = fp2 + "/" + mdfn
+    filepath_a = csvfp + "/" + csvfn
+    filepath_b = mdfp + "/" + mdfn
 
     data = pd.read_csv(filepath_a, encoding= 'utf-8')
     #print(data)
@@ -203,7 +128,53 @@ def csv_to_md(fp1, fp2, csvfn, mdfn, md_title, md_frame):
         f.close()
     print('Execute successful, md file exported')
 
-def xml_to_csv(xml_file_path, csv_file_path_name):
+def xml_to_csv(xmlfp, csvfp, xmlfn, csvfn):
+    '''
+    Description:
+        This function converts xml files exported from labelimg to csv files.
+    parameter:
+        Parameter:
+            xml_file_path: (str) path of xml files.
+            csv_file_path_name: (str) path of csv files and its file name.
+        Return:
+            None
+        Output:
+            CSV file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
+        path2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/train2.csv"
+        cf.xml_to_csv(path1, path2)
+    Link:
+        https://github.com/belongtothenight/FRCNN_Related_Code/blob/main/Format%20Converter%20xml%20to%20csv%20V2.py
+    '''
+    filepath_a = xmlfp + "/" + xmlfn
+    filepath_b = csvfp + "/" + csvfn
+    
+    xml_list = []
+    tree = ET.parse(filepath_a)
+    root = tree.getroot()
+    for member in root.findall('object'):
+        value = (root.find('filename').text,
+                 int(os.path.splitext(root.find('filename').text)[0]),#Image file name needs to be purely with numbers!! No space is allowed.
+                 member[0].text,
+                 int(member[4][0].text),
+                 int(member[4][1].text),
+                 int(member[4][2].text),
+                 int(member[4][3].text)
+                 )
+        xml_list.append(value)
+    column_name = ['filename',  'PicIndex', 'type', 'xmin', 'ymin', 'xmax', 'ymax']
+    xml_df = pd.DataFrame(xml_list, columns=column_name)
+    xml_df_sort = xml_df.sort_values(by=['PicIndex'])
+    xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
+    xml_df_sort_less.to_csv(filepath_b, index=False)
+    print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
+
+#===============================================================================================================
+# Bulk Conversion Function
+
+def bulk_xml_to_csv(xml_file_path, csv_file_path_name):
     '''
     Description:
         This function converts xml files exported from labelimg to csv files.
