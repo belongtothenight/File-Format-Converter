@@ -21,15 +21,9 @@
 ## Developing Environment
 - Windows 11
 - Python 3.10.4
-    - xml.etree.ElementTree
-    - pandas
-    - numpy
-    - os
-    - glob
-    - tkinter
-    - subprocess
-    - pathlib
-    - pyarrow
+    - numpy == 1.23.0
+    - pandas == 1.4.3
+    - PySimpleGUI == 4.60.1
 
 ## File Structure and Description
 - .github/ISSUE_TEMPLATE
