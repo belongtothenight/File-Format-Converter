@@ -29,6 +29,7 @@
     - tkinter
     - subprocess
     - pathlib
+    - pyarrow
 
 ## File Structure and Description
 - .github/ISSUE_TEMPLATE

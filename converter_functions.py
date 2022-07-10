@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 import os
 import glob
-import tkinter as tk
-from tkinter import filedialog
 import subprocess as sp
 from pathlib import Path
 
@@ -215,9 +213,6 @@ def csv_to_parquet(csvfp, pqfp, csvfn, pqfn):
 
     data = pd.read_csv(filepath_a, encoding= 'utf-8')
     data.to_parquet(filepath_b, engine='pyarrow')
-    print("Execute successful, parquet file exported")
-
-    #print("csv to parquet is not coded yet.")
     return True
 
 def parquet_to_csv(pqfp, csvfp, pqfn, csvfn):
@@ -251,9 +246,6 @@ def parquet_to_csv(pqfp, csvfp, pqfn, csvfn):
     
     data = pd.read_parquet(filepath_a)
     data.to_csv(filepath_b, index=False)
-    print(data, '\n\nexecute successful, csv file exported')
-
-    #print("parquet_to_csv is not coded yet.")
     return True
 
 def file_rename(ofp, nfp, ofn, nfn):

@@ -1,10 +1,7 @@
-from fnmatch import fnmatchcase
 import converter_functions as cf
 import PySimpleGUI as sg
-import tkinter as tk
 import webbrowser as wb
 import os
-import time
 # prevent exe error
 import sys
 
@@ -233,52 +230,47 @@ def main():
             Converter_check = 'Converter Selected: ' + converter
             window['-OUTPUT-'].update(Converter_check)
             try:
-                print(converter == fl[3])
-                print(source_filename.endswith(('.csv')) == True)
-                print(export_filename.endswith(('.parquet')))
-                print((source_filename in source_folder_list) == False)
-
-                if converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
+                if converter == fl[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[0] and source_filename.endswith(('.md')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                elif converter == fl[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
-                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
+                elif converter == fl[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) : # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[1] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.md')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                elif converter == fl[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
-                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
+                elif converter == fl[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[2] and source_filename.endswith(('.xml')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                elif converter == fl[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
-                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
+                elif converter == fl[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) : # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[3] and source_filename.endswith(('.csv')) == True and export_filename.endswith(('.parquet')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                elif converter == fl[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
-                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == True: # filename typed, source file exists
+                elif converter == fl[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
-                elif converter == fl[4] and source_filename.endswith(('.parquet')) == True and export_filename.endswith(('.csv')) == True and (source_filename in source_folder_list) == False: # filename typed, source file error
+                elif converter == fl[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
                     Converter_check = 'Source file doesn\'t exist!'
                     print("[LOG] Source file doesn\'t exist!")
                     window['-OUTPUT-'].update(Converter_check, text_color='red')
-                elif converter == fl[5]  and (source_filename in source_folder_list) == True:
+                elif converter == fl[5]  and (source_filename in source_folder_list) :
                     Converter_check = 'Converter Selected: ' + converter + ' => Valid!'
                     print("[LOG] " + Converter_check)
                     window['-OUTPUT-'].update(Converter_check, text_color='green')
@@ -327,27 +319,27 @@ def main():
                 else:
                     # run conversion and export
                     if converter == fl[0]:
-                        if cf.md_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                        if cf.md_to_csv(source_folder, export_folder, source_filename, export_filename) :
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[1]:
-                        if cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test") == True: # h1 and frame doesn't work here
+                        if cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test") : # h1 and frame doesn't work here
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[2]:
-                        if cf.xml_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                        if cf.xml_to_csv(source_folder, export_folder, source_filename, export_filename) :
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[3]:
-                        if cf.csv_to_parquet(source_folder, export_folder, source_filename, export_filename) == True:
+                        if cf.csv_to_parquet(source_folder, export_folder, source_filename, export_filename) :
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[4]:
-                        if cf.parquet_to_csv(source_folder, export_folder, source_filename, export_filename) == True:
+                        if cf.parquet_to_csv(source_folder, export_folder, source_filename, export_filename) :
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     elif converter == fl[5]:
-                        if cf.file_rename(source_folder, export_folder, source_filename, export_filename) == True:
+                        if cf.file_rename(source_folder, export_folder, source_filename, export_filename) :
                             print("[LOG] Conversion complete, File exported!")
                             window['-OUTPUT0-'].update('File exported!', text_color='green')
                     else:
