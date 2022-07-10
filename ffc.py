@@ -5,15 +5,6 @@ import os
 # prevent exe error
 import sys
 
-'''finished functions
-cf.select_folder()
-cf.convert_file()
-cf.user_input()
-cf.csv_to_md()
-cf.xml_to_md()
-cf.bulk_file_rename()
-cf.md_to_csv(fp, mdfn, csvfn)
-'''
 '''
 Links
     https://github.com/PySimpleGUI
@@ -58,7 +49,8 @@ def make_window(theme):
     ]
 
     col_2 = [
-        [sg.Listbox(values=[], enable_events=True, size=(85, 42), key='-LISTBOX-')]
+        [sg.Text('Click documents on the left to preview. Support format: .txt .csv .md', size=(60,1))],
+        [sg.MLine(key='-ML-'+sg.WRITE_ONLY_KEY,  size=(85,42))]
     ]
 
     single_conversion_layout = [
@@ -77,7 +69,7 @@ def make_window(theme):
         [sg.Text('Export File'), sg.OptionMenu(values=('None', 'CSV', 'EXCEL'),  key='-OPTION MENU-'), sg.Text('Initial Filename Number'), sg.Input(key='-INPUT-')],
         [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Button('Confirm and Rename'), sg.Text('View'), sg.OptionMenu(values=('Source Folder', 'Export Folder'),  k='-OPTION MENU-')],
         [sg.HSeparator()],
-        [sg.Listbox(values=[], enable_events=True, size=(135, 42), key='-LISTBOX-')]
+        [sg.Listbox(values=[], enable_events=True, size=(135, 42), key='-LISTBOX-1')]
     ]
 
     # Instructions Layout
@@ -149,11 +141,12 @@ def main():
 
 
         # Event Handling
-        #if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
-        #    print('============ Event = ', event, ' ==============')
-        #    print('-------- Values Dictionary (key=value) --------')
-        #    for key in values:
-        #        print(key, ' = ',values[key])
+        if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
+            print('============ Event = ', event, ' ==============')
+            print('-------- Values Dictionary (key=value) --------')
+            for key in values:
+                print(key, ' = ',values[key])
+        
         if event in (None, 'Exit'):
             print("[LOG] Clicked Exit!")
             break
@@ -363,8 +356,19 @@ def main():
             except:
                 export_folder = ''
                 listbox_update("-LISTBOX-", export_folder, 'export')
-        elif event == '-LISTBOX-4':
-            print("[LOG] Selected Listbox!")
+        elif event == '-LISTBOX-':
+            if values['-R1-'] == True and values['-R2-'] == False:
+                folder = source_folder
+            elif values['-R1-'] == False and values['-R2-'] == True:
+                folder = export_folder
+            try:
+                with open(folder + '/' + values["-LISTBOX-"][0], 'r') as f:
+                    window['-ML-'+sg.WRITE_ONLY_KEY].update('')
+                    source_file = f.read()
+                    window['-ML-'+sg.WRITE_ONLY_KEY].print(source_file)
+                    f.close()
+            except:
+                pass
 
     window.close()
     sys.exit(0)
