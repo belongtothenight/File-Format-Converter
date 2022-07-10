@@ -12,6 +12,10 @@ Links
     https://pysimplegui.readthedocs.io/en/latest/cookbook/#keys_1
     https://www.youtube.com/watch?v=-_z2RPAH0Qk
     https://www.youtube.com/watch?v=n6qzrBPkPqw
+    https://stackoverflow.com/questions/66079632/python-should-gui-be-in-separate-file-confused
+    https://github.com/PySimpleGUI/PySimpleGUI/issues/5139
+    https://docs.python-guide.org/writing/structure/
+    https://www.youtube.com/watch?v=35yYObtZ95o
 '''
 
 # Variables Initialization

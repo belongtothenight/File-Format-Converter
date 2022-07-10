@@ -50,3 +50,11 @@
 1. Convert and Export: Please select converter.
    Problem: Button 'Convert and Export' in tab 'Single Conversion' doesn't work even if all names and directory are correct
    Fix: Try install python package 'pyarrow'.
+
+## Bug
+1. ListBox -> Program Freeze.
+   Problem: Click on the listbox in tab 'Single Conversion' before selecting any directory will cause it to freeze.
+   Status: N/A
+2. Window -> Always on top.
+   Problem: The entire FFC window always display on top of every other windows.
+   Status: N/A
