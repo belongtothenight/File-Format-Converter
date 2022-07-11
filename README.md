@@ -2,28 +2,43 @@
 
 ## NOTICE: THIS REPO IS UNDER DEVELOPMENT
 
-## Functionality
-- GUI
-  - [ ] 1. Functionality selecting GUI.
-- [ ] Single Conversion
-  1. [ ] MD to CSV
-  2. [ ] CSV to MD
-  3. [ ] XML to CSV
-  4. [ ] CSV to Parquet
-  5. [ ] Parquet to CSV
-  6. [ ] Rename
-- [ ] Bulk to Bulk Conversion
-  1. [ ] MD to CSV
-  2. [ ] CSV to MD
-  3. [ ] XML to CSV
-  4. [ ] CSV to Parquet
-  5. [ ] Parquet to CSV
-  6. [ ] Rename
-- [ ] File Merge
-  1. [ ] CSV
-  2. [ ] Parquet
-  3. [ ] MD
-  4. [ ] XML to CSV
+## Functionality Development Process
+- [ ] GUI
+  1. [ ] Single Conversion
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Rule
+  2. [ ] Bulk to Bulk Conversion
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Ruleerge
+  3. [ ] File Merge
+     1. [ ] GUI Layout
+     2. [ ] GUI Event Handling
+     3. [ ] Conversion Algorithm
+     4. [ ] Operation Ruleerge
+- [ ] Conversion Algorithm
+  - [x] Single Conversion
+    1. [x] MD to CSV
+    2. [x] CSV to MD
+    3. [x] XML to CSV
+    4. [x] CSV to Parquet
+    5. [x] Parquet to CSV
+    6. [x] Rename
+  - [x] Bulk to Bulk Conversion
+    1. [x] MD to CSV
+    2. [x] CSV to MD
+    3. [x] XML to CSV
+    4. [x] CSV to Parquet
+    5. [x] Parquet to CSV
+    6. [x] Rename
+  - [ ] File Merge
+    1. [ ] CSV
+    2. [ ] Parquet
+    3. [ ] MD
+    4. [x] XML to CSV
 
 *MD: Markdown files that contains only one table.
 *XML: XML files generated from labelImg.
