@@ -30,7 +30,7 @@ class Layout:
         ]
 
         col_2 = [
-            [sg.Text('Click documents on the left to preview. Support format: .txt .csv .md', size=(60,1))],
+            [sg.Text('Click documents on the left to preview. Support format: .txt .csv .md .xml')],
             [sg.MLine(key='-ML-'+sg.WRITE_ONLY_KEY,  size=(85,42))]
         ]
 
@@ -45,8 +45,22 @@ class Layout:
 
     # Bulk to Bulk Conversion Layout
     def bulk_to_bulk_conversion_layout(self):
+        col_1 = [
+            [sg.Text('Files in Source Folder')],
+            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-')]
+        ]
+
+        col_2 = [
+            [sg.Text('Files in Export Folder')],
+            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-')]
+        ]
+
         bulk_to_bulk_conversion_layout = [
-            [sg.Text('This is Bulk to Bulk Conversion', size=(40,1))],
+            [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filetype (ext)           '), sg.Input(enable_events=True, key='-INPUT-')], 
+            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('New Filename Initial Number', text_color='gray'), sg.Input(disabled=True, enable_events=True, key='-INPUT-')], 
+            [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_bulk_to_bulk_conversion[0], self.cl_bulk_to_bulk_conversion[1], self.cl_bulk_to_bulk_conversion[2], self.cl_bulk_to_bulk_conversion[3], self.cl_bulk_to_bulk_conversion[4], self.cl_bulk_to_bulk_conversion[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
+            [sg.HSeparator()],
+            [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
         return bulk_to_bulk_conversion_layout
 
