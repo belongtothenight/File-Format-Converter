@@ -36,7 +36,7 @@ class Layout:
 
         single_conversion_layout = [
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
+            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-0'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-0')], 
             [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_single_conversion[0], self.cl_single_conversion[1], self.cl_single_conversion[2], self.cl_single_conversion[3], self.cl_single_conversion[4], self.cl_single_conversion[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
@@ -47,17 +47,17 @@ class Layout:
     def bulk_to_bulk_conversion_layout(self):
         col_1 = [
             [sg.Text('Files in Source Folder')],
-            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-')]
+            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-1')]
         ]
 
         col_2 = [
             [sg.Text('Files in Export Folder')],
-            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-')]
+            [sg.Listbox(values=[], enable_events=True, size=(62, 40), key='-LISTBOX-2')]
         ]
 
         bulk_to_bulk_conversion_layout = [
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filetype (ext)           '), sg.Input(enable_events=True, key='-INPUT-')], 
-            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('New Filename Initial Number', text_color='gray'), sg.Input(disabled=True, enable_events=True, key='-INPUT-')], 
+            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-0'), sg.FolderBrowse(), sg.Text('New Filename Initial Number', text_color='gray'), sg.Input(disabled=True, enable_events=True, key='-INPUT-')], 
             [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_bulk_to_bulk_conversion[0], self.cl_bulk_to_bulk_conversion[1], self.cl_bulk_to_bulk_conversion[2], self.cl_bulk_to_bulk_conversion[3], self.cl_bulk_to_bulk_conversion[4], self.cl_bulk_to_bulk_conversion[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]

@@ -143,24 +143,24 @@ class Event_Handler_Function:
             pass
         return fname
 
-    def single_conversion_source_folder(self):
+    def conversion_source_folder(self):
         source_folder = self.values[self.event]
         print('[LOG] Source Folder = ', source_folder)
         source_folder_list = self.listbox_update("-LISTBOX-", source_folder, 'source')
         return source_folder, source_folder_list
 
-    def single_conversion_source_filename(self):
+    def conversion_source_filename(self):
         source_filename = self.values[self.event]
         print('[LOG] Source Filename = ', source_filename)
         return source_filename
 
-    def single_conversion_export_folder(self):
+    def conversion_export_folder(self):
         export_folder = self.values[self.event]
         print('[LOG] Export Folder = ', export_folder)
         export_folder_list = self.listbox_update("-LISTBOX-", export_folder, 'export')
         return export_folder, export_folder_list
 
-    def single_conversion_export_filename(self):
+    def conversion_export_filename(self):
         export_filename = self.values[self.event]
         print('[LOG] Export Filename = ', export_filename)
         return export_filename

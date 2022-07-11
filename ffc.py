@@ -56,7 +56,7 @@ def main():
         
         # calculations
 
-        # Event Handling
+        # General Event Handling
         if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
             ehfc.execution_log_update()
         if event in (None, 'Exit'):
@@ -64,14 +64,18 @@ def main():
             break
         elif event in (cl_single_conversion + cl_bulk_to_bulk_conversion + cl_file_merge + hl):
             ehfc.menu_event()
+
+        # Common Event Handling
         elif event == '-FOLDER-':
-            source_folder, source_folder_list = ehfc.single_conversion_source_folder()
+            source_folder, source_folder_list = ehfc.conversion_source_folder()
         elif event == '-INPUT-':
-            source_filename = ehfc.single_conversion_source_filename()
+            source_filename = ehfc.conversion_source_filename()
         elif event == '-FOLDER-0':
-            export_folder, export_folder_list = ehfc.single_conversion_export_folder()
-        elif event == '-INPUT-2':
-            export_filename = ehfc.single_conversion_export_filename()
+            export_folder, export_folder_list = ehfc.conversion_export_folder()
+        elif event == '-INPUT-0':
+            export_filename = ehfc.conversion_export_filename()
+
+        # Single Conversion Event Handling
         elif event == '-CONVERTER-':
             converter, converter_check = ehfc.single_conversion_converter(source_filename, export_filename, source_folder_list)
         elif event == 'Convert and Export':
@@ -81,8 +85,11 @@ def main():
         elif event == '-R2-':
             ehfc.single_conversion_view_export_folder(export_folder)
         elif event == '-LISTBOX-':
-            #print(export_folder)
             ehfc.single_conversion_file_preview(source_folder, export_folder)
+
+        # Bulk to Bulk Conversion Event Handling
+
+        # File Merge Event Handling
 
     window.close()
     sys.exit(0)
