@@ -1,7 +1,7 @@
 <annotation>
 	<folder>IITFFPAITV Image2</folder>
-	<filename>2102.jpg</filename>
-	<path>D:\Note_Database\Subject\IITF Industrial Innovation and Technology Foresight\IITF Final Project\IITFFP AI Training\IITFFPAIT Rendered Image\IITFFPAITV Image2\2102.jpg</path>
+	<filename>2933.jpg</filename>
+	<path>D:\Note_Database\Subject\IITF Industrial Innovation and Technology Foresight\IITF Final Project\IITFFP AI Training\IITFFPAIT Rendered Image\IITFFPAITV Image2\2933.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
@@ -17,10 +17,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>640</xmin>
-			<ymin>357</ymin>
-			<xmax>920</xmax>
-			<ymax>671</ymax>
+			<xmin>836</xmin>
+			<ymin>409</ymin>
+			<xmax>1077</xmax>
+			<ymax>728</ymax>
 		</bndbox>
 	</object>
 </annotation>

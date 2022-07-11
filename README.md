@@ -61,3 +61,12 @@
 3. Select -> Program Freeze.
    Problem: Click 'Select' in tab 'Single Conversion' before 'Export Filename' was input causing it to freeze.
    Status: Unsolved.
+4. Bulk to Bulk CSV to Parquet -> Parquet file can't be previewed.
+   Problem: When doing the above mentioned process, those csv files' table contains not only the numbers would result like this.
+   Status: Unsolved.
+
+## Possible Improvement
+1. Rewrite the validating mechanism of the tab 'Single Conversion'.
+2. Add progress bar in the tab 'Bulk to Bulk Conversion'.
+3. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
+4. Refresh window when 'Convert and Export' is processing.

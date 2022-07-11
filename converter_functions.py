@@ -81,7 +81,7 @@ def md_to_csv(mdfp, csvfp, mdfn, csvfn):
 
     table = pd.DataFrame(data, columns=category)
     table.to_csv(path_b, index=False)
-    return True
+    return True # can use return to tell whether md file contains table or not.
 
 def csv_to_md(csvfp, mdfp, csvfn, mdfn, md_title, md_frame):
     '''
@@ -179,7 +179,7 @@ def xml_to_csv(xmlfp, csvfp, xmlfn, csvfn):
     xml_df_sort = xml_df.sort_values(by=['PicIndex'])
     xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
     xml_df_sort_less.to_csv(filepath_b, index=False)
-    print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
+    #print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
     return True
 
 def csv_to_parquet(csvfp, pqfp, csvfn, pqfn):
@@ -276,13 +276,192 @@ def file_rename(ofp, nfp, ofn, nfn):
     '''
     filepath_a = ofp + "/" + ofn
     filepath_b = nfp + "/" + nfn
-    os.rename(filepath_a, filepath_b)
+    try:
+        os.rename(filepath_a, filepath_b)
+    except Exception as e:
+        print("Renaming failed" + str(e))
+        #return False
     return True
 
 #===============================================================================================================
 # Bulk Conversion Function
 
-def bulk_xml_to_csv(xml_file_path, csv_file_path_name):
+def bulk_md_to_csv(mdfp, csvfp):
+    '''
+    Description:
+        This function converts all .md files in a folder to csv files.
+    parameter:
+        Parameter:
+            mdfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+        Return:
+            True: (bool) if all .md files are converted to csv files successfully.
+        Output:
+            CSV file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        mdfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        status = cf.bulk_md_to_csv(mdfp, csvfp)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(mdfp)
+    for file in file_list:
+        if file.endswith(".md"):
+            md_to_csv(mdfp, csvfp, file, file[:-3] + ".csv")
+    return True
+
+def bulk_csv_to_md(csvfp, mdfp):
+    '''
+    Description:
+        This function converts all .csv files in a folder to .md files.
+    parameter:
+        Parameter:
+            csvfp: (str) path of source folder.
+            mdfp: (str) path of export folder.
+        Return:
+            True: (bool) if all .csv files are converted to .md files successfully.
+        Output:
+            .md file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        status = cf.bulk_csv_to_md(csvfp, mdfp)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(csvfp)
+    for file in file_list:
+        if file.endswith(".csv"):
+            csv_to_md(csvfp, mdfp, file, file[:-4] + ".md", "Test", "Test")
+    return True
+
+def bulk_xml_to_csv(xmlfp, csvfp):
+    '''
+    Description:
+        This function converts all .xml files in a folder to csv files.
+    parameter:
+        Parameter:
+            xmlfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+        Return:
+            True: (bool) if all .xml files are converted to csv files successfully.
+        Output:
+            CSV file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        xmlfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        status = cf.bulk_xml_to_csv(xmlfp, csvfp)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(xmlfp)
+    for file in file_list:
+        if file.endswith(".xml"):
+            xml_to_csv(xmlfp, csvfp, file, file[:-4] + ".csv")
+    return True
+
+def bulk_csv_to_parquet(csvfp, pqfp):
+    '''
+    Description:
+        This function converts all .csv files in a folder to .parquet files.
+    parameter:
+        Parameter:
+            csvfp: (str) path of source folder.
+            pqfp: (str) path of export folder.
+        Return:
+            True: (bool) if all .csv files are converted to .parquet files successfully.
+        Output:
+            .parquet file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        pqfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        status = cf.bulk_csv_to_parquet(csvfp, pqfp)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(csvfp)
+    for file in file_list:
+        if file.endswith(".csv"):
+            csv_to_parquet(csvfp, pqfp, file, file[:-4] + ".parquet")
+    return True
+
+def bulk_parquet_to_csv(pqfp, csvfp):
+    '''
+    Description:
+        This function converts all .parquet files in a folder to csv files.
+    parameter:
+        Parameter:
+            pqfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+        Return:
+            True: (bool) if all .parquet files are converted to csv files successfully.
+        Output:
+            CSV file: Contains only the converted data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        pqfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        status = cf.bulk_parquet_to_csv(pqfp, csvfp)
+        if status == True:
+            print("Conversion successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(pqfp)
+    for file in file_list:
+        if file.endswith(".parquet"):
+            parquet_to_csv(pqfp, csvfp, file, file[:-8] + ".csv")
+    return True
+
+def bulk_rename(ofp, nfp, oft, nfni):
+    '''
+    Description:
+        This function renames all files in a folder.
+    parameter:
+        Parameter:
+            ofp: (str) path of source folder.
+            nfp: (str) path of export folder.
+            oft: (str) old file type.
+            nfni: (str) new file initial name.
+        Return:
+            True: (bool) if all files are renamed successfully.
+        Output:
+            None
+    Sample Code:
+        import converter_functions as cf
+        ofp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        nfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        nfni = "Test"
+        status = cf.bulk_rename(ofp, nfp, nfni)
+        if status == True:
+            print("Renaming successful")
+    Link:
+        None
+    '''
+    file_list = os.listdir(ofp)
+    for file in file_list:
+        if file.endswith(oft):
+            file_rename(ofp, nfp, file, nfni + oft) # os.path.splitext(file)[1] get extension
+            nfni = str(int(nfni) + 1)
+    return True
+
+#===============================================================================================================
+# File Merge Function
+
+def merge_xml_to_csv(xml_file_path, csv_file_path_name):
     '''
     Description:
         This function converts xml files exported from labelimg to csv files.
@@ -298,7 +477,7 @@ def bulk_xml_to_csv(xml_file_path, csv_file_path_name):
         import converter_functions as cf
         path1 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/xml"
         path2 = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file/train2.csv"
-        cf.xml_to_csv(path1, path2)
+        cf.merge_xml_to_csv(path1, path2)
     Link:
         https://github.com/belongtothenight/FRCNN_Related_Code/blob/main/Format%20Converter%20xml%20to%20csv%20V2.py
     '''
@@ -323,6 +502,9 @@ def bulk_xml_to_csv(xml_file_path, csv_file_path_name):
     xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
     xml_df_sort_less.to_csv(csv_file_path_name, index=False)
     print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
+
+#===============================================================================================================
+# Useless Function
 
 def bulk_file_rename(source_folder_path, source_file_type, renamed_filename_counter_init, generate_file):
     '''

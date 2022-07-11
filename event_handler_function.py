@@ -13,6 +13,9 @@ class Event_Handler_Function:
         self.event = event
         self.values = values
         
+    #==================================================================================================================
+    # General
+
     def execution_log_update(self):
         print('============ Event = ', self.event, ' ==============')
         print('-------- Values Dictionary (key=value) --------')
@@ -120,6 +123,9 @@ class Event_Handler_Function:
         elif self.event == self.hl[0]:
             print("[LOG] Clicked Github Repository!")
             wb.open('https://github.com/belongtothenight/File-Format-Converter')
+
+    #==================================================================================================================
+    # Single Conversion
 
     def listbox_update(self, listbox, folder, flag):
         try:
@@ -302,18 +308,18 @@ class Event_Handler_Function:
     def single_conversion_view_source_folder(self, source_folder):
         print("[LOG] Selected view source folder!")
         try:
-            source_folder_list = self.listbox_update("-LISTBOX-", source_folder, 'source')
+            source_folder_list = self.listbox_update(self.event, source_folder, 'source')
         except:
             source_folder = ''
-            source_folder_list = self.listbox_update("-LISTBOX-", source_folder, 'source')
+            source_folder_list = self.listbox_update(self.event, source_folder, 'source')
 
     def single_conversion_view_export_folder(self, export_folder):
         print("[LOG] Selected view export folder!")
         try:
-            export_folder_list = self.listbox_update("-LISTBOX-", export_folder, 'export')
+            export_folder_list = self.listbox_update(self.event, export_folder, 'export')
         except:
             export_folder = ''
-            export_folder_list = self.listbox_update("-LISTBOX-", export_folder, 'export')
+            export_folder_list = self.listbox_update(self.event, export_folder, 'export')
 
     def single_conversion_file_preview(self, source_folder, export_folder):
         if self.values['-R1-'] == True and self.values['-R2-'] == False:
@@ -328,6 +334,70 @@ class Event_Handler_Function:
                 f.close()
         except:
             pass
+
+    #==================================================================================================================
+    # Bulk Conversion
+
+    def bulk_conversion_listbox_update(self, listbox, folder, flag):
+        try:
+            file_list = os.listdir(folder)
+        except:
+            file_list = []
+        fname = [
+            f
+            for f in file_list
+            if os.path.isfile(os.path.join(folder, f))
+            #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+        ]
+        self.window[listbox].update(fname)
+        return fname
+
+    def bulk_conversion_source_folder(self):
+        source_folder = self.values['-FOLDER-1']
+        print('[LOG] Source Folder = ', source_folder)
+        source_folder_list = self.bulk_conversion_listbox_update('-LISTBOX-1', source_folder, 'source')
+        return source_folder, source_folder_list
+
+    def bulk_conversion_export_folder(self):
+        export_folder = self.values['-FOLDER-2']
+        print('[LOG] Export Folder = ', export_folder)
+        export_folder_list = self.bulk_conversion_listbox_update('-LISTBOX-2', export_folder, 'export')
+        return export_folder, export_folder_list
+
+    def bulk_conversion_select(self):
+        print("[LOG] Select Bulk to Bulk Conversion => " + self.values['-OPTION MENU-0'])
+        converter = self.values['-OPTION MENU-0']
+        if self.values['-OPTION MENU-0'] == self.cl_bulk_to_bulk_conversion[5]:
+            self.window['-TXT-'].update(text_color='black')
+            self.window['-TXT-0'].update(text_color='black')
+            self.window['-INPUT-1'].update(disabled=False)
+            self.window['-INPUT-2'].update(disabled=False)
+        else:
+            self.window['-TXT-'].update(text_color='grey')
+            self.window['-TXT-0'].update(text_color='grey')
+            self.window['-INPUT-1'].update(disabled=True)
+            self.window['-INPUT-2'].update(disabled=True)
+        return converter
+
+    def bulk_conversion_convert_and_export(self, converter, source_folder, export_folder):
+        print("[LOG] Select Bulk to Bulk Conversion and Export")
+        if converter == self.cl_bulk_to_bulk_conversion[0]:
+            cf.bulk_md_to_csv(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
+        elif converter == self.cl_bulk_to_bulk_conversion[1]:
+            cf.bulk_csv_to_md(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
+        elif converter == self.cl_bulk_to_bulk_conversion[2]:
+            cf.bulk_xml_to_csv(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
+        elif converter == self.cl_bulk_to_bulk_conversion[3]:
+            cf.bulk_csv_to_parquet(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
+        elif converter == self.cl_bulk_to_bulk_conversion[4]:
+            cf.bulk_parquet_to_csv(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
+        elif converter == self.cl_bulk_to_bulk_conversion[5]:
+            cf.bulk_rename(self.values['-FOLDER-1'], self.values['-FOLDER-2'], self.values['-INPUT-1'], self.values['-INPUT-2'])
+        print("[LOG] " + converter + " executed!")
+        source_folder_list = self.bulk_conversion_listbox_update('-LISTBOX-1', source_folder, 'source')
+        export_folder_list = self.bulk_conversion_listbox_update('-LISTBOX-2', export_folder, 'export')
+        return source_folder_list, export_folder_list
+
 
 
 if __name__ == '__main__':

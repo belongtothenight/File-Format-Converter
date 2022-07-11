@@ -1,4 +1,5 @@
 # Import custom modules
+import converter_functions as cf
 import gui_layout as gl
 import event_handler_function as ehf
 # Import Package
@@ -48,6 +49,7 @@ def make_window(theme):
 # PysimpleGUI Window Event Handler
 def main():
     window = make_window(sg.theme())
+    source_folder = ''
     
     # This is an Event Loop 
     while True:
@@ -65,7 +67,8 @@ def main():
         elif event in (cl_single_conversion + cl_bulk_to_bulk_conversion + cl_file_merge + hl):
             ehfc.menu_event()
 
-        # Common Event Handling
+        
+        # Single Conversion Event Handling
         elif event == '-FOLDER-':
             source_folder, source_folder_list = ehfc.conversion_source_folder()
         elif event == '-INPUT-':
@@ -74,8 +77,6 @@ def main():
             export_folder, export_folder_list = ehfc.conversion_export_folder()
         elif event == '-INPUT-0':
             export_filename = ehfc.conversion_export_filename()
-
-        # Single Conversion Event Handling
         elif event == '-CONVERTER-':
             converter, converter_check = ehfc.single_conversion_converter(source_filename, export_filename, source_folder_list)
         elif event == 'Convert and Export':
@@ -87,22 +88,22 @@ def main():
         elif event == '-LISTBOX-':
             ehfc.single_conversion_file_preview(source_folder, export_folder)
 
+
         # Bulk to Bulk Conversion Event Handling
+        elif event == '-FOLDER-1':
+            source_folder, source_folder_list = ehfc.bulk_conversion_source_folder()
+        elif event == '-FOLDER-2':
+            export_folder, export_folder_list = ehfc.bulk_conversion_export_folder()
         elif event == '-CONVERTER-0':
-            # new_filename_initial_number_layout_update()
-            print("[LOG] Select Bulk to Bulk Conversion => " + values['-OPTION MENU-0'])
-            if values['-OPTION MENU-0'] == cl_bulk_to_bulk_conversion[5]:
-                window['-TXT-'].update(text_color='black')
-                window['-INPUT-2'].update(disabled=False)
-            else:
-                window['-TXT-'].update(text_color='grey')
-                window['-INPUT-2'].update(disabled=True)
             # source_filetype_exist_check()
+            converter = ehfc.bulk_conversion_select()
         elif event == '-CE-':
-            print("[LOG] Select Bulk to Bulk Conversion and Export")
             # bulk_to_bulk_conversion_converter_check()
-            # bulk_to_bulk_conversion_convert_and_export()
-            print(values['-INPUT-1'])
+            source_folder_list, export_folder_list = ehfc.bulk_conversion_convert_and_export(converter, source_folder, export_folder)
+        elif event == '-LISTBOX-1':
+            source_folder_list = ehfc.bulk_conversion_listbox_update('-LISTBOX-1', source_folder, 'source')
+        elif event == '-LISTBOX-2':
+            export_folder_list = ehfc.bulk_conversion_listbox_update('-LISTBOX-2', export_folder, 'export')
         
             
 
