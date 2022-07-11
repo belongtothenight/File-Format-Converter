@@ -4,8 +4,10 @@ import os
 import webbrowser as wb
 
 class Event_Handler_Function:
-    def __init__(self, cl, hl, window, event, values):
-        self.cl = cl
+    def __init__(self, cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, hl, window, event, values):
+        self.cl_single_conversion = cl_single_conversion
+        self.cl_bulk_to_bulk_conversion = cl_bulk_to_bulk_conversion
+        self.cl_file_merge = cl_file_merge
         self.hl = hl
         self.window = window
         self.event = event
@@ -18,42 +20,102 @@ class Event_Handler_Function:
             print(key, ' = ',self.values[key])
 
     def menu_event(self):
-        print("[LOG] Clicked " + self.event + "!")
-        if self.event == self.cl[0]:
+        print("[LOG] cl_single_conversionicked " + self.event + "!")
+        if self.event == self.cl_single_conversion[0]:
             sg.popup(
-                "This function converts md files to csv files in the same folder. It can only convert the first table in markdown file correctly.",
+                "This function converts md file (table)  to csv files in the same folder. It can only convert the first table in markdown file correctly.",
                 keep_on_top=True,
-                title=self.cl[0] + ' Description'
+                title=self.cl_single_conversion[0] + ' Description'
                 )
-        elif self.event == self.cl[1]:
+        elif self.event == self.cl_single_conversion[1]:
             sg.popup(
-                "This function converts csv files to md files in the same folder.",
+                "This function converts single csv file to md file (table) .",
                 keep_on_top=True,
-                title=self.cl[1] + ' Description'
+                title=self.cl_single_conversion[1] + ' Description'
                 )
-        elif self.event == self.cl[2]:
+        elif self.event == self.cl_single_conversion[2]:
             sg.popup(
-                "This function converts xml files exported from labelimg to csv files.",
+                "This function converts single xml file exported from labelimg to csv file.",
                 keep_on_top=True,
-                title=self.cl[2] + ' Description'
+                title=self.cl_single_conversion[2] + ' Description'
                 )
-        elif self.event == self.cl[3]:
+        elif self.event == self.cl_single_conversion[3]:
             sg.popup(
-                "This function converts csv files to parquet files in the same folder.",
+                "This function converts single csv file to parquet file.",
                 keep_on_top=True,
-                title=self.cl[3] + ' Description'
+                title=self.cl_single_conversion[3] + ' Description'
                 )
-        elif self.event == self.cl[4]:
+        elif self.event == self.cl_single_conversion[4]:
             sg.popup(
-                "This function converts parquet files to csv files in the same folder.",
+                "This function converts single parquet file to csv file.",
                 keep_on_top=True,
-                title=self.cl[4] + ' Description'
+                title=self.cl_single_conversion[4] + ' Description'
                 )
-        elif self.event == self.cl[5]:
+        elif self.event == self.cl_single_conversion[5]:
             sg.popup(
-                "This function renames the file specified.",
+                "This function renames the single file specified.",
                 keep_on_top=True,
-                title=self.cl[5] + ' Description'
+                title=self.cl_single_conversion[5] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[0]:
+            sg.popup(
+                "This function convert md files (table)  to csv files.",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[0] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[1]:
+            sg.popup(
+                "This function convert csv files to md files (table) .",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[1] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[2]:
+            sg.popup(
+                "This function convert xml files to csv files.",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[2] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[3]:
+            sg.popup(
+                "This function convert csv files to parquet files.",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[3] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[4]:
+            sg.popup(
+                "This function convert parquet files to csv files.",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[4] + ' Description'
+                )
+        elif self.event == self.cl_bulk_to_bulk_conversion[5]:
+            sg.popup(
+                "This function rename all the specified type of files.",
+                keep_on_top=True,
+                title=self.cl_bulk_to_bulk_conversion[5] + ' Description'
+                )
+        elif self.event == self.cl_file_merge[0]:
+            sg.popup(
+                "This function merges multiple csv files into one csv file.",
+                keep_on_top=True,
+                title=self.cl_file_merge[0] + ' Description'
+                )
+        elif self.event == self.cl_file_merge[1]:
+            sg.popup(
+                "This function merges multiple parquet files into one parquet file.",
+                keep_on_top=True,
+                title=self.cl_file_merge[1] + ' Description'
+                )
+        elif self.event == self.cl_file_merge[2]:
+            sg.popup(
+                "This function merges multiple md files (table) into one md file.",
+                keep_on_top=True,
+                title=self.cl_file_merge[2] + ' Description'
+                )
+        elif self.event == self.cl_file_merge[3]:
+            sg.popup(
+                "This function merges multiple xml files into one csv file.",
+                keep_on_top=True,
+                title=self.cl_file_merge[3] + ' Description'
                 )
         elif self.event == self.hl[0]:
             print("[LOG] Clicked Github Repository!")
@@ -104,51 +166,51 @@ class Event_Handler_Function:
         return export_filename
 
     def single_conversion_filename_varification(self, converter, source_filename, export_filename, source_folder_list):
-        if converter == self.cl[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
+        if converter == self.cl_single_conversion[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
+        elif converter == self.cl_single_conversion[0] and source_filename.endswith(('.md'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
-        elif converter == self.cl[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) : # filename typed, source file exists
+        elif converter == self.cl_single_conversion[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) : # filename typed, source file exists
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
+        elif converter == self.cl_single_conversion[1] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.md'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
-        elif converter == self.cl[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
+        elif converter == self.cl_single_conversion[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
+        elif converter == self.cl_single_conversion[2] and source_filename.endswith(('.xml'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
-        elif converter == self.cl[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) : # filename typed, source file exists
+        elif converter == self.cl_single_conversion[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) : # filename typed, source file exists
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
+        elif converter == self.cl_single_conversion[3] and source_filename.endswith(('.csv'))  and export_filename.endswith(('.parquet'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
-        elif converter == self.cl[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
+        elif converter == self.cl_single_conversion[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) : # filename typed, source file exists
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
+        elif converter == self.cl_single_conversion[4] and source_filename.endswith(('.parquet'))  and export_filename.endswith(('.csv'))  and (source_filename in source_folder_list) == False: # filename typed, source file error
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
-        elif converter == self.cl[5]  and (source_filename in source_folder_list) :
+        elif converter == self.cl_single_conversion[5]  and (source_filename in source_folder_list) :
             converter_check = 'Converter Selected: ' + converter + ' => Valid!'
             print("[LOG] " + converter_check)
             self.window['-OUTPUT-'].update(converter_check, text_color='green')
-        elif converter == self.cl[5] and (source_filename in source_folder_list) == False:
+        elif converter == self.cl_single_conversion[5] and (source_filename in source_folder_list) == False:
             converter_check = 'Source file doesn\'t exist!'
             print("[LOG] Source file doesn\'t exist!")
             self.window['-OUTPUT-'].update(converter_check, text_color='red')
@@ -172,27 +234,27 @@ class Event_Handler_Function:
         return converter, converter_check
 
     def single_conversion_convert_and_export(self, converter, source_folder, export_folder, source_filename, export_filename):
-        if converter == self.cl[0]:
+        if converter == self.cl_single_conversion[0]:
             if cf.md_to_csv(source_folder, export_folder, source_filename, export_filename) :
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
-        elif converter == self.cl[1]:
+        elif converter == self.cl_single_conversion[1]:
             if cf.csv_to_md(source_folder, export_folder, source_filename, export_filename, "Test", "Test") : # h1 and frame doesn't work here
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
-        elif converter == self.cl[2]:
+        elif converter == self.cl_single_conversion[2]:
             if cf.xml_to_csv(source_folder, export_folder, source_filename, export_filename) :
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
-        elif converter == self.cl[3]:
+        elif converter == self.cl_single_conversion[3]:
             if cf.csv_to_parquet(source_folder, export_folder, source_filename, export_filename) :
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
-        elif converter == self.cl[4]:
+        elif converter == self.cl_single_conversion[4]:
             if cf.parquet_to_csv(source_folder, export_folder, source_filename, export_filename) :
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
-        elif converter == self.cl[5]:
+        elif converter == self.cl_single_conversion[5]:
             if cf.file_rename(source_folder, export_folder, source_filename, export_filename) :
                 print("[LOG] Conversion complete, File exported!")
                 self.window['-OUTPUT0-'].update('File exported!', text_color='green')
@@ -209,22 +271,22 @@ class Event_Handler_Function:
             elif converter_check == 'Please type filenames.':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[0] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[0] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[1] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[1] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[2] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[2] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[3] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[3] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[4] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[4] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
-            elif converter_check == 'Converter Selected: ' + self.cl[5] + ' => InValid!':
+            elif converter_check == 'Converter Selected: ' + self.cl_single_conversion[5] + ' => InValid!':
                 print("[LOG] Converter selected: None")
                 self.window['-OUTPUT0-'].update('Please type filenames.', text_color='red')
             elif converter_check == 'Source file doesn\'t exist!':

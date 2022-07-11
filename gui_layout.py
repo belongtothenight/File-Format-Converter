@@ -1,14 +1,22 @@
 import PySimpleGUI as sg
 
 class Layout:
-    def __init__(self, cl, Converter_check):
-        self.cl = cl
+    def __init__(self, cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, Converter_check):
+        self.cl_single_conversion = cl_single_conversion
+        self.cl_bulk_to_bulk_conversion = cl_bulk_to_bulk_conversion
+        self.cl_file_merge = cl_file_merge
         self.Converter_check = Converter_check
     
     # Menu Layout
     def menu_layout(self):
         menu_def = [
-            ['Function List', [self.cl[0], self.cl[1], self.cl[2], self.cl[3], self.cl[4], self.cl[5]]],
+            ['Function List',
+                [
+                'Single Conversion', [self.cl_single_conversion[0], self.cl_single_conversion[1], self.cl_single_conversion[2], self.cl_single_conversion[3], self.cl_single_conversion[4], self.cl_single_conversion[5]],
+                'Bulk to Bulk Conversion', [self.cl_bulk_to_bulk_conversion[0], self.cl_bulk_to_bulk_conversion[1], self.cl_bulk_to_bulk_conversion[2], self.cl_bulk_to_bulk_conversion[3], self.cl_bulk_to_bulk_conversion[4], self.cl_bulk_to_bulk_conversion[5]],
+                'File Merge', [self.cl_file_merge[0], self.cl_file_merge[1], self.cl_file_merge[2], self.cl_file_merge[3]]
+                ]
+            ],
             ['Help', ['Github README.md']]
         ]
         right_click_menu_def = [[], ['Help', ['Github README.md'], 'Exit']]
@@ -29,15 +37,25 @@ class Layout:
         single_conversion_layout = [
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
             [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
-            [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl[0], self.cl[1], self.cl[2], self.cl[3], self.cl[4], self.cl[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
+            [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_single_conversion[0], self.cl_single_conversion[1], self.cl_single_conversion[2], self.cl_single_conversion[3], self.cl_single_conversion[4], self.cl_single_conversion[5]),  key='-OPTION MENU-'), sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
         return single_conversion_layout
 
     # Bulk to Bulk Conversion Layout
+    def bulk_to_bulk_conversion_layout(self):
+        bulk_to_bulk_conversion_layout = [
+            [sg.Text('This is Bulk to Bulk Conversion', size=(40,1))],
+        ]
+        return bulk_to_bulk_conversion_layout
 
     # File Merge Layout
+    def file_merge_layout(self):
+        file_merge_layout = [
+            [sg.Text('This is File Merge', size=(40,1))],
+        ]
+        return file_merge_layout
 
     '''
     # Rename Layout
@@ -81,19 +99,29 @@ class Layout:
 
     # Layout of the whole window
     @staticmethod
-    def layout(menu_def, single_conversion_layout, execution_log_layout, instruction_layout, about_layout):
+    def layout(menu_def,single_conversion_layout, bulk_to_bulk_conversion_layout, file_merge_layout,
+                execution_log_layout, instruction_layout, about_layout):
         layout = [
             [sg.MenubarCustom(menu_def, key='-MENU-', font='Courier 15', tearoff=True)]
         ]
 
         layout +=[[sg.TabGroup([[
             sg.Tab('Single Conversion', single_conversion_layout),
+            sg.Tab('Bulk to Bulk Conversion', bulk_to_bulk_conversion_layout),
+            sg.Tab('File Merge', file_merge_layout),
             sg.Tab('Execution Log', execution_log_layout),
             sg.Tab('Instructions', instruction_layout),
             sg.Tab('About', about_layout)
             ]], key='-TAB GROUP-', expand_x=True, expand_y=True)
         ]]
+        layout[-1].append(sg.Sizegrip())
         return layout
+
+    @staticmethod
+    def window_layout(layout, right_click_menu_def):
+        window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=True)
+        window.set_min_size(window.size)
+        return window
 
 
 if __name__ == '__main__':
