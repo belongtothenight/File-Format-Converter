@@ -3,7 +3,7 @@
 ## NOTICE: THIS REPO IS UNDER DEVELOPMENT
 
 ## Functionality Development Process
-- [ ] GUI
+- [ ] FFC Program
   1. [ ] Single Conversion
      1. [x] GUI Layout
      2. [x] GUI Event Handling
