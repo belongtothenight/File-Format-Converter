@@ -1,7 +1,8 @@
 import PySimpleGUI as sg
 
 class Layout:
-    def __init__(self, cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, Converter_check):
+    def __init__(self, hl, cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, Converter_check):
+        self.hl = hl
         self.cl_single_conversion = cl_single_conversion
         self.cl_bulk_to_bulk_conversion = cl_bulk_to_bulk_conversion
         self.cl_file_merge = cl_file_merge
@@ -17,7 +18,7 @@ class Layout:
                 'File Merge', [self.cl_file_merge[0], self.cl_file_merge[1], self.cl_file_merge[2], self.cl_file_merge[3]]
                 ]
             ],
-            ['Help', ['Github README.md']]
+            ['Help', [self.hl[0], self.hl[1], self.hl[2]]]
         ]
         right_click_menu_def = [[], ['Help', ['Github README.md'], 'Exit']]
         return menu_def, right_click_menu_def
@@ -68,24 +69,25 @@ class Layout:
 
     # File Merge Layout
     def file_merge_layout(self):
+        col_1 = [
+            [sg.Text('Files in'), sg.Radio('Source Folder', "RadioDemo", default=True, size=(10,1), k='-R1-3', enable_events=True), sg.Radio('Export Folder', "RadioDemo", default=True, size=(10,1), k='-R2-3', enable_events=True)],
+            [sg.Listbox(values=[], enable_events=True, size=(40, 40), key='-LISTBOX-3')]
+        ]
+
+        col_2 = [
+            [sg.Text('Click documents on the left to preview. Support format: .txt .csv .md .xml')],
+            [sg.MLine(key='-ML-3'+sg.WRITE_ONLY_KEY,  size=(85,42))]
+        ]
+
         file_merge_layout = [
-            [sg.Text('This is File Merge', size=(40,1))],
+            [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-3'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-3')], 
+            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-4'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-4')], 
+            [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_file_merge[0], self.cl_file_merge[1], self.cl_file_merge[2], self.cl_file_merge[3]), key='-OPTION MENU-2'),
+                sg.Button('Select', enable_events=True, key='-CONVERTER-2'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-2'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT-2')],
+            [sg.HSeparator()],
+            [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
         return file_merge_layout
-
-    '''
-    # Rename Layout
-    @staticmethod
-    def rename_layout():
-        rename_layout = [
-            [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(key='-INPUT-')], 
-            [sg.Text('Export File'), sg.OptionMenu(values=('None', 'CSV', 'EXCEL'),  key='-OPTION MENU-'), sg.Text('Initial Filename Number'), sg.Input(key='-INPUT-')],
-            [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Button('Confirm and Rename'), sg.Text('View'), sg.OptionMenu(values=('Source Folder', 'Export Folder'),  k='-OPTION MENU-')],
-            [sg.HSeparator()],
-            [sg.Listbox(values=[], enable_events=True, size=(135, 42), key='-LISTBOX-1')]
-        ]
-        return rename_layout
-    '''
 
     # Execution Log Layout
     @staticmethod

@@ -20,13 +20,10 @@ Links
     https://www.youtube.com/watch?v=35yYObtZ95o
 '''
 
-# Function
-
-
 # PysimpleGUI Window Layout
 def make_window(theme):
     sg.theme(theme)
-    guic = gl.Layout(cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, converter_check)
+    guic = gl.Layout(hl, cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, converter_check)
     menu_def, right_click_menu_def = guic.menu_layout()
     single_conversion_layout = guic.single_convertion_layout()
     bulk_to_bulk_conversion_layout = guic.bulk_to_bulk_conversion_layout()
@@ -127,10 +124,10 @@ if __name__ == '__main__':
     # Converter Function List
     cl_single_conversion = ['MD to CSV', 'CSV to MD', 'XML to CSV', 'CSV to Parquet', 'Parquet to CSV', 'File Rename']
     cl_bulk_to_bulk_conversion = ['MDs to CSVs', 'CSVs to MDs', 'XMLs to CSVs', 'CSVs to Parquets', 'Parquets to CSVs', 'Files Rename']
-    cl_file_merge = ['CSV', 'Parquet', 'MD', 'XMLs to CSV']
+    cl_file_merge = ['CSVs to CSV', 'Parquets to Parquet', 'MDs to MD', 'XMLs to CSV']
 
     # Help List
-    hl = ['Github README.md']
+    hl = ['README.md', 'Issue Report', 'Discussion']
 
     # Start GUI
     sg.theme('lightgrey1')

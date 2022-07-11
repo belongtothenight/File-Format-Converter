@@ -121,8 +121,15 @@ class Event_Handler_Function:
                 title=self.cl_file_merge[3] + ' Description'
                 )
         elif self.event == self.hl[0]:
-            print("[LOG] Clicked Github Repository!")
+            print("[LOG] Clicked " + self.hl[0] + " !")
             wb.open('https://github.com/belongtothenight/File-Format-Converter')
+        elif self.event == self.hl[1]:
+            print("[LOG] Clicked " + self.hl[1] + " !")
+            wb.open('https://github.com/belongtothenight/File-Format-Converter/issues')
+        elif self.event == self.hl[2]:
+            print("[LOG] Clicked " + self.hl[2] + " !")
+            wb.open('https://github.com/belongtothenight/File-Format-Converter/discussions')
+            
 
     #==================================================================================================================
     # Single Conversion
