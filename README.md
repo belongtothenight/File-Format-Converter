@@ -1,4 +1,4 @@
-# File Format Converter for Data Manipulation and AI Training
+# File Format Converter for Data Manipulation and AI Training (FFC)
 
 ## NOTICE: THIS REPO IS UNDER DEVELOPMENT
 
