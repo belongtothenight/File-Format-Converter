@@ -4,19 +4,29 @@
 
 ## Functionality
 - GUI
-    - [ ] 1. Functionality selecting GUI.
-- Main Function
-    - [x] 1. md to csv
-    - [x] 2. csv to md
-    - [x] 3. xml to csv (labelimg)
-    - [x] 4. bulk file rename
-    - [ ] 5. csv to parquet (dtype, compress format)
-    - [ ] 6. parquet to csv (partial read)
-- Sub Function
-    - [x] 1. select folder path
-    - [x] 2. select file
-    - [x] 3. user input
-    - [ ] 4. list all files
+  - [ ] 1. Functionality selecting GUI.
+- [ ] Single Conversion
+  1. [ ] MD to CSV
+  2. [ ] CSV to MD
+  3. [ ] XML to CSV
+  4. [ ] CSV to Parquet
+  5. [ ] Parquet to CSV
+  6. [ ] Rename
+- [ ] Bulk to Bulk Conversion
+  1. [ ] MD to CSV
+  2. [ ] CSV to MD
+  3. [ ] XML to CSV
+  4. [ ] CSV to Parquet
+  5. [ ] Parquet to CSV
+  6. [ ] Rename
+- [ ] File Merge
+  1. [ ] CSV
+  2. [ ] Parquet
+  3. [ ] MD
+  4. [ ] XML to CSV
+
+*MD: Markdown files that contains only one table.
+*XML: XML files generated from labelImg.
 
 ## Developing Environment
 - Windows 11
@@ -67,6 +77,7 @@
 
 ## Possible Improvement
 1. Rewrite the validating mechanism of the tab 'Single Conversion'.
-2. Add progress bar in the tab 'Bulk to Bulk Conversion'.
-3. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
-4. Refresh window when 'Convert and Export' is processing.
+2. Add validating mechanism to the tab 'Bulk to Bulk Conversion'.
+3. Add progress bar in the tab 'Bulk to Bulk Conversion'.
+4. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
+5. Refresh window when 'Convert and Export' is processing.
