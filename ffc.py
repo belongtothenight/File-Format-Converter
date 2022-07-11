@@ -1,4 +1,6 @@
 # Import custom modules
+from cgitb import text
+from multiprocessing.sharedctypes import Value
 import converter_functions as cf
 import gui_layout as gl
 import event_handler_function as ehf
@@ -46,14 +48,23 @@ def make_window(theme):
 # PysimpleGUI Window Event Handler
 def main():
     window = make_window(sg.theme())
+
+    # Variables Initialization
     source_folder = ''
+    source_filename = ''
+    source_folder_list = []
+    export_folder = ''
+    export_filename = ''
+    export_folder_list = []
+    converter = ''
+    converter_check = ''
+    final_status = ''
     
     # This is an Event Loop 
     while True:
         event, values = window.read(timeout=100)
         ehfc = ehf.Event_Handler_Function(cl_single_conversion, cl_bulk_to_bulk_conversion, cl_file_merge, hl, window, event, values)
-        
-        # calculations
+
 
         # General Event Handling
         if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
@@ -103,8 +114,24 @@ def main():
             export_folder_list = ehfc.bulk_conversion_listbox_update('-LISTBOX-2', export_folder, 'export')
         
             
-
         # File Merge Event Handling
+        elif event == '-FOLDER-3':
+            source_folder, source_folder_list = ehfc.file_merge_source_folder()
+        elif event == '-FOLDER-4':
+            export_folder, export_folder_list = ehfc.file_merge_export_folder()
+        elif event == '-INPUT-4':
+            export_filename = ehfc.file_merge_export_filename()
+        elif event == '-CONVERTER-2':
+            converter = ehfc.file_merge_select()
+        elif event == '-CE-2':
+            export_folder_list = ehfc.file_merge_convert_and_export(converter, source_folder, export_folder, export_filename)
+        elif event == '-R1-3':
+            source_folder_list = ehfc.file_merge_listbox_update('-LISTBOX-3', source_folder)
+        elif event == '-R2-3':
+            export_folder_list = ehfc.file_merge_listbox_update('-LISTBOX-3', export_folder)
+        elif event == '-LISTBOX-3':
+            ehfc.file_merge_file_preview(source_folder, export_folder)
+
 
     window.close()
     sys.exit(0)

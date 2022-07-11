@@ -14,7 +14,7 @@ class Event_Handler_Function:
         self.values = values
         
     #==================================================================================================================
-    # General
+    # Menu Bar
 
     def execution_log_update(self):
         print('============ Event = ', self.event, ' ==============')
@@ -374,6 +374,7 @@ class Event_Handler_Function:
     def bulk_conversion_select(self):
         print("[LOG] Select Bulk to Bulk Conversion => " + self.values['-OPTION MENU-0'])
         converter = self.values['-OPTION MENU-0']
+        self.window['-TXT-1'].update('Selected Converter: ' + converter, text_color='green')
         if self.values['-OPTION MENU-0'] == self.cl_bulk_to_bulk_conversion[5]:
             self.window['-TXT-'].update(text_color='black')
             self.window['-TXT-0'].update(text_color='black')
@@ -388,6 +389,7 @@ class Event_Handler_Function:
 
     def bulk_conversion_convert_and_export(self, converter, source_folder, export_folder):
         print("[LOG] Select Bulk to Bulk Conversion and Export")
+        self.window['-TXT-2'].update('Start Converting...', text_color='green')
         if converter == self.cl_bulk_to_bulk_conversion[0]:
             cf.bulk_md_to_csv(self.values['-FOLDER-1'], self.values['-FOLDER-2'])
         elif converter == self.cl_bulk_to_bulk_conversion[1]:
@@ -405,6 +407,81 @@ class Event_Handler_Function:
         export_folder_list = self.bulk_conversion_listbox_update('-LISTBOX-2', export_folder, 'export')
         return source_folder_list, export_folder_list
 
+    #==================================================================================================================
+    # File Merge
+
+    def file_merge_listbox_update(self, listbox, folder):
+        try:
+            file_list = os.listdir(folder)
+        except:
+            file_list = []
+        fname = [
+            f
+            for f in file_list
+            if os.path.isfile(os.path.join(folder, f))
+            #and f.lower().endswith(('.md', '.csv', '.xml', '.parquet')) # add file format filter
+        ]
+        self.window[listbox].update(fname)
+        return fname
+
+    def file_merge_source_folder(self):
+        source_folder = self.values['-FOLDER-3']
+        print("[LOG] File Merge >> Source Folder: " + source_folder)
+        source_folder_list = self.file_merge_listbox_update('-LISTBOX-3', source_folder)
+        self.window['-R1-3'].update(value=True)
+        self.window['-R2-3'].update(value=False)
+        return source_folder, source_folder_list
+
+    def file_merge_export_folder(self):
+        export_folder = self.values['-FOLDER-4']
+        print("[LOG] File Merge >> Export Folder: " + export_folder)
+        export_folder_list = self.file_merge_listbox_update('-LISTBOX-3', export_folder)
+        self.window['-R1-3'].update(value=False)
+        self.window['-R2-3'].update(value=True)
+        return export_folder, export_folder_list
+
+    def file_merge_export_filename(self):
+        export_filename = self.values['-INPUT-4']
+        print("[LOG] File Merge >> Export Filename: " + export_filename)
+        self.window['-R1-3'].update(value=False)
+        self.window['-R2-3'].update(value=True)
+        return export_filename
+
+    def file_merge_select(self):
+        converter = self.values['-OPTION MENU-2']
+        print("[LOG] File Merge >> Converter: " + converter)
+        self.window['-TXT-3'].update('Selected Converter: ' + converter, text_color='green')
+        return converter
+
+    def file_merge_convert_and_export(self, converter, source_folder, export_folder, export_filename):
+        self.window['-TXT-4'].update('Start Converting...', text_color='green')
+        if converter == self.cl_file_merge[0]:
+            cf.merge_csv(source_folder, export_folder, export_filename)
+        elif converter == self.cl_file_merge[1]:
+            cf.merge_parquet(source_folder, export_folder, export_filename)
+        elif converter == self.cl_file_merge[2]:
+            cf.merge_md(source_folder, export_folder, export_filename)
+        elif converter == self.cl_file_merge[3]:
+            cf.merge_xml_to_csv(source_folder, export_folder, export_filename)
+        print("[LOG] File Merge >> Exported: " + export_filename)
+        export_folder_list = self.file_merge_listbox_update('-LISTBOX-3', export_folder)
+        self.window['-R1-3'].update(value=False)
+        self.window['-R2-3'].update(value=True)
+        return export_folder_list
+
+    def file_merge_file_preview(self, source_folder, export_folder):
+        if self.values['-R1-3'] == True and self.values['-R2-3'] == False:
+            folder = source_folder
+        elif self.values['-R1-3'] == False and self.values['-R2-3'] == True:
+            folder = export_folder
+        try:
+            with open(folder + '/' + self.values["-LISTBOX-3"][0], 'r') as f:
+                self.window['-ML-3'+sg.WRITE_ONLY_KEY].update('')
+                source_file = f.read()
+                self.window['-ML-3'+sg.WRITE_ONLY_KEY].print(source_file)
+                f.close()
+        except:
+            pass
 
 
 if __name__ == '__main__':

@@ -13,13 +13,13 @@
      1. [x] GUI Layout
      2. [x] GUI Event Handling
      3. [x] Conversion Algorithm
-     4. [ ] Operation Ruleerge
+     4. [ ] Operation Rule
   3. [ ] File Merge
-     1. [ ] GUI Layout
-     2. [ ] GUI Event Handling
-     3. [ ] Conversion Algorithm
-     4. [ ] Operation Ruleerge
-- [ ] Conversion Algorithm
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Rule
+- [x] Conversion Algorithm
   - [x] Single Conversion
     1. [x] MD to CSV
     2. [x] CSV to MD
@@ -34,10 +34,10 @@
     4. [x] CSV to Parquet
     5. [x] Parquet to CSV
     6. [x] Rename
-  - [ ] File Merge
-    1. [ ] CSV
-    2. [ ] Parquet
-    3. [ ] MD
+  - [x] File Merge
+    1. [x] CSV
+    2. [x] Parquet
+    3. [x] MD
     4. [x] XML to CSV
 
 *MD: Markdown files that contains only one table.

@@ -444,7 +444,7 @@ def bulk_rename(ofp, nfp, oft, nfni):
         import converter_functions as cf
         ofp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
         nfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
-        nfni = "Test"
+        nfni = "1001"
         status = cf.bulk_rename(ofp, nfp, nfni)
         if status == True:
             print("Renaming successful")
@@ -461,14 +461,147 @@ def bulk_rename(ofp, nfp, oft, nfni):
 #===============================================================================================================
 # File Merge Function
 
-def merge_xml_to_csv(xml_file_path, csv_file_path_name):
+def merge_csv(csvsfp, csvfp, csvfn):
+    '''
+    Description:
+        This function merges all .csv files in a folder.
+    parameter:
+        Parameter:
+            csvsfp: (str) path of source folder.
+            csvfp: (str) path of export folder.
+            csvfn: (str) new file name.
+        Return:
+            True: (bool) if all .csv files are merged successfully.
+        Output:
+            CSV file: Contains only the merged data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        csvsfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        csvfn = "test_file.csv"
+        status = cf.merge_csv(csvsfp, csvfp, csvfn)
+        if status == True:
+            print("Merging successful")
+    Link:
+        None
+    '''
+    fulldata = pd.DataFrame()
+    filepath_b = csvfp + "/" + csvfn
+    file_list = os.listdir(csvsfp)
+    for file in file_list:
+        if file.endswith(".csv"):
+            data = pd.read_csv(csvsfp + "/" + file, encoding= 'utf-8')
+            fulldata = pd.concat([fulldata, data])
+    fulldata.to_csv(filepath_b, index=False)
+    return True
+
+def merge_parquet(pqsfp, pqfp, pqfn):
+    '''
+    Description:
+        This function merges all .parquet files in a folder.
+    parameter:
+        Parameter:
+            pqsfp: (str) path of source folder.
+            pqfp: (str) path of export folder.
+            pqfn: (str) new file name.
+        Return:
+            True: (bool) if all .parquet files are merged successfully.
+        Output:
+            Parquet file: Contains only the merged data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        pqsfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        pqfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        pqfn = "test_file.parquet"
+        status = cf.merge_parquet(pqsfp, pqfp, pqfn)
+        if status == True:
+            print("Merging successful")
+    Link:
+        None
+    '''
+    fulldata = pd.DataFrame()
+    filepath_b = pqfp + "/" + pqfn
+    file_list = os.listdir(pqsfp)
+    for file in file_list:
+        if file.endswith(".parquet"):
+            data = pd.read_parquet(pqsfp + "/" + file)
+            fulldata = pd.concat([fulldata, data])
+    fulldata.to_parquet(filepath_b, index=False)
+    return True
+
+def merge_md(mdsfp, mdfp, mdfn):
+    '''
+    Description:
+        This function merges all .md files in a folder.
+    parameter:
+        Parameter:
+            mdsfp: (str) path of source folder.
+            mdfp: (str) path of export folder.
+            mdfn: (str) new file name.
+        Return:
+            True: (bool) if all .md files are merged successfully.
+        Output:
+            Markdown file: Contains only the merged data.(without column name)
+    Sample Code:
+        import converter_functions as cf
+        mdsfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfp = "D:/Note_Database/Subject/CPDWG Custom Program Developed With Gidhub/FFC/test_file"
+        mdfn = "test_file.md"
+        status = cf.merge_md(mdsfp, mdfp, mdfn)
+        if status == True:
+            print("Merging successful")
+    Link:
+        None
+    '''
+    fulldata = pd.DataFrame()
+    file_counter = 0
+    filepath_b = mdfp + "/" + mdfn
+    file_list = os.listdir(mdsfp)
+    for file in file_list:
+        file_counter += 1
+        if file.endswith(".md"):
+            filepath_a = mdsfp + "/" + file
+            line_counter = 0
+            with open (filepath_a, 'r') as f:
+                md = f.read()
+                split_md = md.splitlines()
+                for line in split_md:
+                    data = []
+                    if line.startswith("|"):
+                        line_counter += 1
+                        if (line_counter) == 1:
+                            if file_counter == 1:
+                                category = line.split("|")
+                                category_counter = len(category) - 2 # there are one extra column at the start and end of the table
+                                del category[0]
+                                del category[-1]
+                                for i in range(0, category_counter): 
+                                    category[i] = category[i].strip()
+                            else:
+                                continue
+                        elif (line_counter) == 2:
+                            continue
+                        else:
+                            buffer = line.split("|")
+                            del buffer[0]
+                            del buffer[-1]
+                            for i in range(0, category_counter):
+                                buffer[i] = buffer[i].strip()
+                            data.append(buffer)
+                    table = pd.DataFrame(data, columns=category)
+                    fulldata = pd.concat([fulldata, table])
+    fulldata.to_markdown(filepath_b, index=False)
+    return True
+
+def merge_xml_to_csv(xmlfp, csvfp, csvfn):
     '''
     Description:
         This function converts xml files exported from labelimg to csv files.
     parameter:
         Parameter:
-            xml_file_path: (str) path of xml files.
-            csv_file_path_name: (str) path of csv files and its file name.
+            xmlfp: (str) path of xml files.
+            csvfp: (str) path of csv file.
+            csvfn: (str) csv file name.
         Return:
             None
         Output:
@@ -481,9 +614,10 @@ def merge_xml_to_csv(xml_file_path, csv_file_path_name):
     Link:
         https://github.com/belongtothenight/FRCNN_Related_Code/blob/main/Format%20Converter%20xml%20to%20csv%20V2.py
     '''
-    print('\n\nExecuting xml_to_csv function')
+    filepath_b = csvfp + "/" + csvfn
+    
     xml_list = []
-    for xml_file in glob.glob(xml_file_path + '/*.xml'):
+    for xml_file in glob.glob(xmlfp + '/*.xml'):
         tree = ET.parse(xml_file)
         root = tree.getroot()
         for member in root.findall('object'):
@@ -495,12 +629,12 @@ def merge_xml_to_csv(xml_file_path, csv_file_path_name):
                      int(member[4][2].text),
                      int(member[4][3].text)
                      )
-            xml_list.append(value)
+            xml_list = pd.concat([xml_list, value])
     column_name = ['filename',  'PicIndex', 'type', 'xmin', 'ymin', 'xmax', 'ymax']
     xml_df = pd.DataFrame(xml_list, columns=column_name)
     xml_df_sort = xml_df.sort_values(by=['PicIndex'])
     xml_df_sort_less = xml_df_sort.drop("PicIndex", axis=1)
-    xml_df_sort_less.to_csv(csv_file_path_name, index=False)
+    xml_df_sort_less.to_csv(filepath_b, index=False)
     print(xml_df_sort_less, '\n\nexecute successful, csv file exported')
 
 #===============================================================================================================
