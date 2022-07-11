@@ -88,6 +88,23 @@ def main():
             ehfc.single_conversion_file_preview(source_folder, export_folder)
 
         # Bulk to Bulk Conversion Event Handling
+        elif event == '-CONVERTER-0':
+            # new_filename_initial_number_layout_update()
+            print("[LOG] Select Bulk to Bulk Conversion => " + values['-OPTION MENU-0'])
+            if values['-OPTION MENU-0'] == cl_bulk_to_bulk_conversion[5]:
+                window['-TXT-'].update(text_color='black')
+                window['-INPUT-2'].update(disabled=False)
+            else:
+                window['-TXT-'].update(text_color='grey')
+                window['-INPUT-2'].update(disabled=True)
+            # source_filetype_exist_check()
+        elif event == '-CE-':
+            print("[LOG] Select Bulk to Bulk Conversion and Export")
+            # bulk_to_bulk_conversion_converter_check()
+            # bulk_to_bulk_conversion_convert_and_export()
+            print(values['-INPUT-1'])
+        
+            
 
         # File Merge Event Handling
 
