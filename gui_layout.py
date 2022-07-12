@@ -39,7 +39,7 @@ class Layout:
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-'), sg.FolderBrowse(), sg.Text('Source Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-')], 
             [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-0'), sg.FolderBrowse(), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-0')], 
             [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_single_conversion[0], self.cl_single_conversion[1], self.cl_single_conversion[2], self.cl_single_conversion[3], self.cl_single_conversion[4], self.cl_single_conversion[5]), key='-OPTION MENU-'),
-                sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(size=(25,1), key='-OUTPUT0-')],
+                sg.Button('Select', enable_events=True, key='-CONVERTER-'), sg.Text(self.Converter_check , size=(36,1), key='-OUTPUT-'), sg.Button('Convert and Export'), sg.Txt(key='-OUTPUT0-')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
@@ -61,7 +61,7 @@ class Layout:
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-1'), sg.FolderBrowse(), sg.Text('Source Filetype (ext)           ', text_color='gray', enable_events=True, key="-TXT-0"), sg.Input(disabled=True, enable_events=True, key='-INPUT-1')], 
             [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-2'), sg.FolderBrowse(), sg.Text('New Filename Initial Number', text_color='gray', enable_events=True, key="-TXT-"), sg.Input(disabled=True, enable_events=True, key='-INPUT-2')], 
             [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_bulk_to_bulk_conversion[0], self.cl_bulk_to_bulk_conversion[1], self.cl_bulk_to_bulk_conversion[2], self.cl_bulk_to_bulk_conversion[3], self.cl_bulk_to_bulk_conversion[4], self.cl_bulk_to_bulk_conversion[5]), key='-OPTION MENU-0'),
-                sg.Button('Select', enable_events=True, key='-CONVERTER-0'), sg.Text(size=(36,1), enable_events=True, key='-TXT-1'), sg.Button('Convert and Export', enable_events=True, key='-CE-'), sg.Text(size=(25,1), enable_events=True, key='-TXT-2')],
+                sg.Button('Select', enable_events=True, key='-CONVERTER-0'), sg.Text(size=(36,1), enable_events=True, key='-TXT-1'), sg.Button('Convert and Export', enable_events=True, key='-CE-'), sg.Text(enable_events=True, key='-TXT-2')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
@@ -83,7 +83,7 @@ class Layout:
             [sg.Text('Source Folder'), sg.In(size=(40,1), enable_events=True, key='-FOLDER-3'), sg.FolderBrowse(target='-FOLDER-3'), sg.Text('All tables in file should have the same header to prevent program failure!', text_color='red')], 
             [sg.Text('Export Folder '), sg.In(size=(40,1), enable_events=True, key='-FOLDER-4'), sg.FolderBrowse(target='-FOLDER-4'), sg.Text('Export Filename (with ext)'), sg.Input(enable_events=True, key='-INPUT-4')], 
             [sg.Text('Select Converter'), sg.OptionMenu(values=(self.cl_file_merge[0], self.cl_file_merge[1], self.cl_file_merge[2], self.cl_file_merge[3]), key='-OPTION MENU-2'),
-                sg.Button('Select', enable_events=True, key='-CONVERTER-2'), sg.Text(size=(36,1), enable_events=True, key='-TXT-3'), sg.Button('Convert and Export', enable_events=True, key='-CE-2'), sg.Text(size=(25,1), key='-TXT-4')],
+                sg.Button('Select', enable_events=True, key='-CONVERTER-2'), sg.Text(size=(32,1), enable_events=True, key='-TXT-3'), sg.Button('Convert and Export', enable_events=True, key='-CE-2'), sg.Text(key='-TXT-4')],
             [sg.HSeparator()],
             [sg.Column(col_1,), sg.VSeparator(), sg.Column(col_2,)]
         ]
@@ -103,7 +103,40 @@ class Layout:
     @staticmethod
     def instruction_layout():
         instruction_layout = [
-            [sg.Text('Instructions for using this program are in this tab!')]
+            [sg.Text('''
+This tab provides a list of instructions for use of the program.
+
+1. Single Conversion:
+        This tab allows you to convert a single file from one filetype to another.
+    Operation Steps:
+        1. Select the source folder.
+        2. Select the export folder.
+        3. Select the converter.
+        4. Click the select button.
+        5. Select the source filename with file extension included.
+        6. Select the export filename with file extension included.
+        7. Click the convert and export button.
+2. Bulk to Bulk Conversion:
+        This tab allows you to convert all specified type of files in a folder to another.
+    Operation Steps:
+        1. Select the source folder.
+        2. Select the export folder.
+        3. Select the converter.
+        4. Click the select button.
+        5. For "File Rename" converter, additional source filetype and export filename initial number are required.
+            Source Filetype: The filetype of the source files that you intended to rename. Example: ".xlsx", ".csv", ".txt", etc.
+            Export Filename Initial Number: The initial number of the export filename. All the files are renamed with incremental number 
+                based on the initial number. Example: "1", "1001", "100001", etc.
+        6. Click the convert and export button.
+3. File Merge:
+        This tab allows you to merge multiple files into a single file.
+4. Execution Log:
+        This tab provides a log for every operation performed by the user, and is used to track back errors.
+5. Instructions:
+        Current tab.
+6. About:
+        This tab provides information about the program.
+            ''')]
         ]
         return instruction_layout
 
@@ -111,7 +144,21 @@ class Layout:
     @staticmethod
     def about_layout():
         about_layout = [
-            [sg.Text('About this program is in this tab!')]
+            [sg.Text('''
+This program aims to provide easy and offline access to the conversion of various filetypes to other filetypes.
+
+Developed Usage:
+1. Transfer XML files generated from labelImg, which specifies the selected region coordinate of pictures and turn them into CSV files for further processing.
+2. Renaming large amount of files with only a few clicks can greatly decrease the time needed when generating AI training files.
+3. Able to convert between markdown, CSV, and Parquet files is extremely useful for data management since my current data is managed with Obsidian, 
+    which is good for viewing data, but not for managing them.
+
+For instructions, please refer to the instructions tab.
+For more information about this project, please visit my GitHub page: https://github.com/belongtothenight/File-Format-Converter.
+For issue report, please visit my GitHub Issues page to report: https://github.com/belongtothenight/File-Format-Converter/issues.
+For discussion, please visit my GitHub Discussions page: https://github.com/belongtothenight/File-Format-Converter/discussions.
+Mentioned links can be accessed by clicking the 'Help' element on the menu bar.
+            ''')]
         ]
         return about_layout
 
@@ -127,8 +174,8 @@ class Layout:
             sg.Tab('Single Conversion', single_conversion_layout),
             sg.Tab('Bulk to Bulk Conversion', bulk_to_bulk_conversion_layout),
             sg.Tab('File Merge', file_merge_layout),
-            sg.Tab('Execution Log', execution_log_layout),
             sg.Tab('Instructions', instruction_layout),
+            sg.Tab('Execution Log', execution_log_layout),
             sg.Tab('About', about_layout)
             ]], key='-TAB GROUP-', expand_x=True, expand_y=True)
         ]]
@@ -137,7 +184,7 @@ class Layout:
 
     @staticmethod
     def window_layout(layout, right_click_menu_def):
-        window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=True)
+        window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=False)
         window.set_min_size(window.size)
         return window
 

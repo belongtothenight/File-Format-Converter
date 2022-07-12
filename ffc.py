@@ -1,7 +1,4 @@
 # Import custom modules
-from cgitb import text
-from multiprocessing.sharedctypes import Value
-import converter_functions as cf
 import gui_layout as gl
 import event_handler_function as ehf
 # Import Package
@@ -68,7 +65,8 @@ def main():
 
         # General Event Handling
         if event not in (sg.TIMEOUT_EVENT, sg.WIN_CLOSED):
-            ehfc.execution_log_update()
+            pass
+            #ehfc.execution_log_update()
         if event in (None, 'Exit'):
             print("[LOG] Clicked Exit!")
             break
