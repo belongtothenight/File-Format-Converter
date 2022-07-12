@@ -2,6 +2,7 @@
 
 [![Dependency Review](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml)
 [![CodeQL](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml)
+[![Codacy Security Scan](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml)
 
 ## Functionality Development Process
 - [ ] FFC Program
