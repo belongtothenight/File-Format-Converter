@@ -1,6 +1,6 @@
 # File Format Converter for Data Manipulation and AI Training (FFC)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/belongtothenight/File-Format-Converter?display_name=v1.0.0)
+![Bower Version (including pre-releases)](https://img.shields.io/bower/v/https://github.com/belongtothenight/File-Format-Converter/releases?include_prereleases)
 <!--[![Dependency Review](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml)-->
 [![CodeQL](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml)
 [![Codacy Security Scan](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml)
