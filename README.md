@@ -8,6 +8,15 @@
 
 <!--General User-->
 
+## Description
+This program aims to provide easy and offline access to the conversion of various filetypes to other filetypes.
+
+Developed Usage:
+1. Transfer XML files generated from labelImg, which specifies the selected region coordinate of pictures and turn them into CSV files for further processing.
+2. Renaming large amount of files with only a few clicks can greatly decrease the time needed when generating AI training files.
+3. Able to convert between markdown, CSV, and Parquet files is extremely useful for data management since my current data is managed with Obsidian, 
+    which is good for viewing data, but not for managing them.
+
 ## Instruction
 1. Single Conversion:
         This tab allows you to convert a single file from one filetype to another.
