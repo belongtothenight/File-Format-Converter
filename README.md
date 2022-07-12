@@ -1,6 +1,6 @@
 # File Format Converter for Data Manipulation and AI Training (FFC)
 
-## NOTICE: THIS REPO IS UNDER DEVELOPMENT
+
 
 ## Functionality Development Process
 - [ ] FFC Program
@@ -42,6 +42,37 @@
 
 *MD: Markdown files that contains only one table.
 *XML: XML files generated from labelImg.
+
+## Instruction
+1. Single Conversion:
+        This tab allows you to convert a single file from one filetype to another.
+    Operation Steps:
+   1. Select the source folder.
+   2. Select the export folder.
+   3. Select the converter.
+   4. Click the select button.
+   5. Select the source filename with file extension included.
+   6. Select the export filename with file extension included.
+   7. Click the convert and export button.
+2. Bulk to Bulk Conversion:
+        This tab allows you to convert all specified type of files in a folder to another.
+    Operation Steps:
+   1. Select the source folder.
+   2. Select the export folder.
+   3. Select the converter.
+   4. Click the select button.
+   5. For "File Rename" converter, additional source filetype and export filename initial number are required.
+       Source Filetype: The filetype of the source files that you intended to rename. Example: ".xlsx", ".csv", ".txt", etc.
+       Export Filename Initial Number: The initial number of the export filename. All the files are renamed with incremental number based on the initial number. Example: "1", "1001", "100001", etc.
+   6. Click the convert and export button.
+3. File Merge:
+   This tab allows you to merge multiple files into a single file.
+4. Execution Log:
+   This tab provides a log for every operation performed by the user, and is used to track back errors.
+5. Instructions:
+   Provide instructions on using this program.
+6. About:
+   This tab provides information about the program.
 
 ## Developing Environment
 - Windows 11
