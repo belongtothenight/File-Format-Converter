@@ -76,6 +76,27 @@
 6. About:
    This tab provides information about the program.
 
+## Repository Structure and Description
+- .github/ISSUE_TEMPLATE
+  - ISSUE_TEMPLATE
+    - bug_report.md
+    - custom.md
+    - feature_request.md
+   - workflows
+     - checkmarx.yml
+     - codacy.yml
+     - codeql-analysis.yml
+     - dependency-review.yml
+- .gitignore: File types not included in this repo.
+- CONTRIBUTING.md: What to do if you want to contribute.
+- LICENSE: MIT license detail.
+- README.md: Introduction to this repo.
+- converter_functions.yp: Store all the functions beside GUI.
+- event_handler_function.py: GUI and function execution.
+- ffc.py: Workflow.
+- gui_layout.py: 
+- requirements.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
+
 ## Developing Environment
 - Windows 11
 - Python 3.10.4
@@ -83,26 +104,11 @@
     - pandas == 1.4.3
     - PySimpleGUI == 4.60.1
 
-## File Structure and Description
-- .github/ISSUE_TEMPLATE
-  - bug_report.md
-  - custom.md
-  - feature_request.md
-- test_file: Containing used files and those exported by these functions.
-  - jpb: File for renaming.
-  - xml: File for renaming.
-  - file_list_basic.csv: File generated from md to csv function.
-  - file_list_basic.md: File generated from csv to md function.
-  - file_list.csv: File generated from bulk file rename function.
-  - file_list.xlsx: File generated from bulk file rename function.
-- .gitignore: File types not included in this repo.
-- CONTRIBUTING.md: What to do if you want to contribute.
-- LICENSE: MIT license detail.
-- README.md: Introduction to this repo.
-- converter_functions.yp: Store all the functions beside GUI.
-- ffc.exe: Executable version of ffc.py.
-- ffc.py: GUI and function execution.
-- python_library_requirement.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
+## Program Structure
+- ffc.py
+  - event_handler_function.py
+    - converter_functions.py
+  - gui_layout.py
 
 ## Troubleshoot
 1. Convert and Export: Please select converter.
@@ -129,3 +135,4 @@
 3. Add progress bar in the tab 'Bulk to Bulk Conversion'.
 4. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
 5. Refresh window when 'Convert and Export' is processing.
+6. Add JSON Converter.
