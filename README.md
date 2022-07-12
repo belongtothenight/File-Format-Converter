@@ -2,9 +2,9 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/belongtothenight/File-Format-Converter?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/belongtothenight/File-Format-Converter?style=for-the-badge)
-<!--[![Dependency Review](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml)-->
 [![CodeQL](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml)
 [![Codacy Security Scan](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml)
+<!--[![Dependency Review](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml)-->
 
 <!--Please check my GitHub page for latest info!-->
 
