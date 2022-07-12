@@ -6,46 +6,7 @@
 
 <!--Please check my GitHub page for latest info!-->
 
-## Functionality Development Process
-- [ ] FFC Program
-  1. [ ] Single Conversion
-     1. [x] GUI Layout
-     2. [x] GUI Event Handling
-     3. [x] Conversion Algorithm
-     4. [ ] Operation Rule
-  2. [ ] Bulk to Bulk Conversion
-     1. [x] GUI Layout
-     2. [x] GUI Event Handling
-     3. [x] Conversion Algorithm
-     4. [ ] Operation Rule
-  3. [ ] File Merge
-     1. [x] GUI Layout
-     2. [x] GUI Event Handling
-     3. [x] Conversion Algorithm
-     4. [ ] Operation Rule
-- [x] Conversion Algorithm
-  - [x] Single Conversion
-    1. [x] MD to CSV
-    2. [x] CSV to MD
-    3. [x] XML to CSV
-    4. [x] CSV to Parquet
-    5. [x] Parquet to CSV
-    6. [x] Rename
-  - [x] Bulk to Bulk Conversion
-    1. [x] MD to CSV
-    2. [x] CSV to MD
-    3. [x] XML to CSV
-    4. [x] CSV to Parquet
-    5. [x] Parquet to CSV
-    6. [x] Rename
-  - [x] File Merge
-    1. [x] CSV
-    2. [x] Parquet
-    3. [x] MD
-    4. [x] XML to CSV
-
-*MD: Markdown files that contains only one table.
-*XML: XML files generated from labelImg.
+<!--General User-->
 
 ## Instruction
 1. Single Conversion:
@@ -106,11 +67,54 @@
     - pandas == 1.4.3
     - PySimpleGUI == 4.60.1
 
+<!--Coder-->
+
 ## Program Structure
 - ffc.py
   - event_handler_function.py
     - converter_functions.py
   - gui_layout.py
+
+## Functionality Development Process
+- [ ] FFC Program
+  1. [ ] Single Conversion
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Rule
+  2. [ ] Bulk to Bulk Conversion
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Rule
+  3. [ ] File Merge
+     1. [x] GUI Layout
+     2. [x] GUI Event Handling
+     3. [x] Conversion Algorithm
+     4. [ ] Operation Rule
+- [x] Conversion Algorithm
+  - [x] Single Conversion
+    1. [x] MD to CSV
+    2. [x] CSV to MD
+    3. [x] XML to CSV
+    4. [x] CSV to Parquet
+    5. [x] Parquet to CSV
+    6. [x] Rename
+  - [x] Bulk to Bulk Conversion
+    1. [x] MD to CSV
+    2. [x] CSV to MD
+    3. [x] XML to CSV
+    4. [x] CSV to Parquet
+    5. [x] Parquet to CSV
+    6. [x] Rename
+  - [x] File Merge
+    1. [x] CSV
+    2. [x] Parquet
+    3. [x] MD
+    4. [x] XML to CSV
+
+*MD: Markdown files that contains only one table.
+*XML: XML files generated from labelImg.
 
 ## Troubleshoot
 1. Convert and Export: Please select converter.
@@ -138,3 +142,4 @@
 4. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
 5. Refresh window when 'Convert and Export' is processing.
 6. Add JSON Converter.
+7. Add AVRO Converter.
