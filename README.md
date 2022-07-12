@@ -4,6 +4,8 @@
 [![CodeQL](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codeql-analysis.yml)
 [![Codacy Security Scan](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml)
 
+<!--Please check my GitHub page for latest info!-->
+
 ## Functionality Development Process
 - [ ] FFC Program
   1. [ ] Single Conversion
