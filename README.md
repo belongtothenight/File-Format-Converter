@@ -6,45 +6,62 @@
 [![Codacy Security Scan](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/codacy.yml)
 <!--[![Dependency Review](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/belongtothenight/File-Format-Converter/actions/workflows/dependency-review.yml)-->
 
-<!--Please check my GitHub page for latest info!-->
+<!--Please check my GitHub page for the latest info!-->
+
+## Table of Content
+- General User Section
+   - [Description](#description)
+   - [Instruction](#instruction)
+   - [Developing Environment](#developing-environment)
+- Coder Section
+   - [Program Structure](#program-structure)
+   - [Repository Structure and Description](#repository-structure-and-description)
+   - [Functionality Development Process](#functionality-development-process)
+   - [Troubleshoot](#troubleshoot)
+   - [Bug](#bug)
+   -  [Possible Improvement](#possible-improvement)
 
 <!--General User-->
 
 ## Description
-This program aims to provide easy and offline access to the conversion of various filetypes to other filetypes.
+This program aims to provide easy and offline access to convert various file types to other file types.
 
 Developed Usage:
-1. Transfer XML files generated from labelImg, which specifies the selected region coordinate of pictures and turn them into CSV files for further processing.
-2. Renaming large amount of files with only a few clicks can greatly decrease the time needed when generating AI training files.
-3. Able to convert between markdown, CSV, and Parquet files is extremely useful for data management since my current data is managed with Obsidian, 
-    which is good for viewing data, but not for managing them.
+1. Transfer XML files generated from labelImg, which specifies the selected region coordinate of pictures, and turn them into CSV files for further processing.
+2. Renaming many files with only a few clicks can significantly decrease the time needed when generating AI training files.
+3. Able to convert between markdown, CSV, and Parquet files is extremely useful for data management since my current data is managed with Obsidian, which is suitable for viewing data but not managing them.
 
 ## Instruction
 1. Single Conversion:
-        This tab allows you to convert a single file from one filetype to another.
+        This tab allows you to convert a single file from one file type to another.
     Operation Steps:
    1. Select the source folder.
    2. Select the export folder.
    3. Select the converter.
    4. Click the select button.
-   5. Select the source filename with file extension included.
-   6. Select the export filename with file extension included.
-   7. Click the convert and export button.
+   5. Select the source file name with file extension included.
+   6. Select the export file name with file extension included.
+   7. Click the convert and export button.![.](Single_Conversion.png)
 2. Bulk to Bulk Conversion:
-        This tab allows you to convert all specified type of files in a folder to another.
+        This tab allows you to convert all specified types of files in one folder to another.
     Operation Steps:
    1. Select the source folder.
    2. Select the export folder.
    3. Select the converter.
    4. Click the select button.
-   5. For "File Rename" converter, additional source filetype and export filename initial number are required.
-       Source Filetype: The filetype of the source files that you intended to rename. Example: ".xlsx", ".csv", ".txt", etc.
-       Export Filename Initial Number: The initial number of the export filename. All the files are renamed with incremental number based on the initial number. Example: "1", "1001", "100001", etc.
-   6. Click the convert and export button.
+   5. For the "File Rename" converter, an additional source file type and export filename initial number are required.<br/>
+       **Source Filetype**: The filetype of the source files that you intended to rename. Example: ".xlsx", ".csv", ".txt", etc.<br/>
+       **Export Filename Initial Number**: The initial number of the export filename. All the files are renamed with an incremental number based on the initial number. Example: "1", "1001", "100001", etc.
+   6. Click the convert and export button.![.](Bulk_to_Bulk_Conversion.png)
 3. File Merge:
    This tab allows you to merge multiple files into a single file.
+   1. Select the source folder.
+   2. Select the export folder.
+   3. Select the converter.
+   4. Click the 'Select' button.
+   5. Click the 'Convert and Export' button.![.](File_Merge.png)
 4. Execution Log:
-   This tab provides a log for every operation performed by the user, and is used to track back errors.
+   This tab provides a log for every operation the user performs and is used to track back errors.
 5. Instructions:
    Provide instructions on using this program.
 6. About:
@@ -124,33 +141,33 @@ Developed Usage:
     3. [x] MD
     4. [x] XML to CSV
 
-*MD: Markdown files that contains only one table.
+*MD: Markdown files that contain only one table.<br/>
 *XML: XML files generated from labelImg.
 
 ## Troubleshoot
-1. Convert and Export: Please select converter.
-   Problem: Button 'Convert and Export' in tab 'Single Conversion' doesn't work even if all names and directory are correct
-   Fix: Try install python package 'pyarrow'.
+1. Convert and Export: Please select converter.<br/>
+   Problem: Button 'Convert and Export' in the tab 'Single Conversion' doesn't work even if all names and directories are correct.<br/>
+   Fix: Try to install the python package 'pyarrow'.
 
 ## Bug
-1. ListBox -> Program Freeze.
-   Problem: Click on the listbox in tab 'Single Conversion' before selecting any directory will cause it to freeze.
-   Status: Unsolved.
-2. Window -> Always on top.
-   Problem: The entire FFC window always display on top of every other windows.
-   Status: Fixed.
-3. Select -> Program Freeze.
-   Problem: Click 'Select' in tab 'Single Conversion' before 'Export Filename' was input causing it to freeze.
-   Status: Unsolved.
-4. Bulk to Bulk CSV to Parquet -> Parquet file can't be previewed.
-   Problem: When doing the above mentioned process, those csv files' table contains not only the numbers would result like this.
-   Status: Unsolved.
+1. **ListBox -> Program Freeze.**<br/>
+   *Problem:* Click on the list box in the tab 'Single Conversion' before selecting any directory will cause it to freeze.<br/>
+   *Status:* Unsolved.
+2. **Window -> Always on top.**<br/>
+   *Problem:* The entire FFC window is always displayed on top of every other window.<br/>
+   *Status:* Fixed.
+3. **Select -> Program Freeze.**<br/>
+   *Problem:* Click 'Select' in tab 'Single Conversion' before 'Export Filename' was input causing it to freeze.<br/>
+   *Status:* Unsolved.
+4. **Bulk to Bulk CSV to Parquet -> Parquet file can't be previewed.**<br/>
+   *Problem:* When doing the above-mentioned process, those CSV files' table contains not only the numbers that would result like this.<br/>
+   *Status:* Unsolved.
 
 ## Possible Improvement
 1. Rewrite the validating mechanism of the tab 'Single Conversion'.
 2. Add validating mechanism to the tab 'Bulk to Bulk Conversion'.
-3. Add progress bar in the tab 'Bulk to Bulk Conversion'.
+3. Add a progress bar in the tab 'Bulk to Bulk Conversion'.
 4. Add multiprocessing feature to the tab 'Bulk to Bulk Conversion'.
-5. Refresh window when 'Convert and Export' is processing.
+5. Refresh the window when 'Convert and Export' is processing.
 6. Add JSON Converter.
 7. Add AVRO Converter.
