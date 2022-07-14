@@ -50,6 +50,21 @@ Developed Usage:
 6. About:
    This tab provides information about the program.
 
+## Developing Environment
+- Windows 11
+- Python 3.10.4
+    - numpy == 1.23.0
+    - pandas == 1.4.3
+    - PySimpleGUI == 4.60.1
+
+<!--Coder-->
+
+## Program Structure
+- ffc.py
+  - event_handler_function.py
+    - converter_functions.py
+  - gui_layout.py
+
 ## Repository Structure and Description
 - .github/ISSUE_TEMPLATE
   - ISSUE_TEMPLATE
@@ -70,21 +85,6 @@ Developed Usage:
 - ffc.py: Workflow.
 - gui_layout.py: 
 - requirements.txt: List of python library can be used to install them. "$ pip install -r python_library_requirement.txt"
-
-## Developing Environment
-- Windows 11
-- Python 3.10.4
-    - numpy == 1.23.0
-    - pandas == 1.4.3
-    - PySimpleGUI == 4.60.1
-
-<!--Coder-->
-
-## Program Structure
-- ffc.py
-  - event_handler_function.py
-    - converter_functions.py
-  - gui_layout.py
 
 ## Functionality Development Process
 - [ ] FFC Program
