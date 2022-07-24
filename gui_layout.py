@@ -184,7 +184,7 @@ Mentioned links can be accessed by clicking the 'Help' element on the menu bar.
 
     @staticmethod
     def window_layout(layout, right_click_menu_def):
-        window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=False)
+        window = sg.Window('File Format Converter', layout, right_click_menu=right_click_menu_def, right_click_menu_tearoff=True, grab_anywhere=True, resizable=True, margins=(0,0), use_custom_titlebar=True, finalize=True, keep_on_top=True, icon=r'./icon.ico')
         window.set_min_size(window.size)
         return window
 
