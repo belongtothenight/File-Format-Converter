@@ -358,11 +358,14 @@ MigrationBackup/
 # Excecutable files
 *.exe
 *.spec
-.build/
-.dist/
+build/
+dist/
 
 # Release Files
 .Release/
 
 # Test Files
-.test_file/
+test_file/
+
+# VS Code
+.vscode/
